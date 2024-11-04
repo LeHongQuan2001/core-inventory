@@ -1,0 +1,500 @@
+{
+    "common": {
+        "name": "Inventory Management Tool",
+        "domain": "inventory-trading.admicro.vn",
+        "home": "Trang chủ",
+        "loading": "Đang tải dữ liệu...",
+        "support": "Trợ giúp",
+        "docs": "Tài liệu",
+        "dataNotFound": "Không có dữ liệu hiển thị trong chế độ này.",
+        "placeholder": "Từ khóa ...",
+        "confirm": "Xác nhận",
+        "confirmMessage": "Bạn có chắc chắn thực hiện hành động này!",
+        "sequence": "#",
+        "viewAll": "Xem tất cả",
+        "clickToEdit": "Click để sửa thông tin",
+        "noResult": "No Result!",
+        "websApps": "Webs, Apps",
+        "noData": "Không có dữ liệu",
+        "languages": {
+            "vi": "Tiếng Việt",
+            "en": "English"
+        },
+        "search": {
+            "button": "Tìm kiếm",
+            "placeHolder": "Nhập từ khóa cần tìm kiếm...",
+            "keyword": "Từ khóa"
+        },
+        "button": {
+            "search": "Tìm kiếm",
+            "delete": "Xóa",
+            "cancel": "Hủy bỏ",
+            "edit": "Chỉnh sửa",
+            "ok": "Đồng ý",
+            "save": "Lưu lại",
+            "returnToDashboard": "Trở về trang chủ",
+            "downloadExcel": "Tải file excel",
+            "report": "Báo cáo",
+            "send": "Gửi",
+            "viewAll": "Xem tất cả",
+            "disable": "Vô hiệu hóa",
+            "register": "Đăng ký",
+            "info": "Thông tin",
+            "approve": "Duyệt tin",
+            "reNotice": "Bắn lại tin",
+            "deny": "Hủy tin bắn",
+            "update": "Cập nhật",
+            "pushTest": "Bắn thử",
+            "export": "Tải dữ liệu",
+            "analytic": "Phân tích",
+            "assign": "Assign",
+            "share": "Chia sẻ"
+        },
+        "notify": {
+            "success": {
+                "title": "Thông báo",
+                "message": "Đã cập nhật dữ liệu thành công!"
+            },
+            "error": {
+                "title": "Cảnh báo",
+                "message": "Có lỗi xảy ra trong quá trình xử lý dữ liệu!",
+                "messageAccessDeny": "Quyền truy cập bị từ chối, vui lòng kiểm tra lại!"
+            },
+            "createSuccess": {
+                "title": "Thông báo",
+                "message": "Dữ liệu được tạo thành công!"
+            },
+            "updateSuccess": {
+                "title": "Thông báo",
+                "message": "Cập nhật thông tin thành công!"
+            },
+            "copy": {
+                "title": "Notification",
+                "message": "Sao chép dữ liệu thành công"
+            }
+        },
+        "paginator": {
+            "itemsPerPageLabel": "Hiển thị",
+            "nextPage": "Trang sau",
+            "previousPage": "Trang trước",
+            "firstPage": "Trang đầu",
+            "lastPage": "Trang cuối",
+            "ofLabel": "của",
+            "pageNumber": "Số trang",
+            "perPages": "/"
+        },
+        "datePicker": {
+            "applyLabel": "Áp dụng",
+            "cancelLabel": "Hủy",
+            "customRangeLabel": "Tùy chỉnh",
+            "today": "Hôm nay",
+            "yesterday": "Hôm qua",
+            "7daysAgo": "7 ngày trước",
+            "30daysAgo": "30 ngày trước",
+            "thisMonth": "Tháng này",
+            "lastMonth": "Tháng trước",
+            "threeMonth": "Ba tháng",
+            "days": {
+                "monday": "T2",
+                "tuesday": "T3",
+                "wednesday": "T4",
+                "thursday": "T5",
+                "friday": "T6",
+                "saturday": "T7",
+                "sunday": "CN"
+            },
+            "months": {
+                "january": "Tháng 1",
+                "february": "Tháng 2",
+                "march": "Tháng 3",
+                "april": "Tháng 4",
+                "may": "Tháng 5",
+                "june": "Tháng 6",
+                "july": "Tháng 7",
+                "august": "Tháng 8",
+                "september": "Tháng 9",
+                "october": "Tháng 10",
+                "november": "Tháng 11",
+                "december": "Tháng 12"
+            }
+        },
+        "validator": {
+            "notHtmlTag": "Đầu vào không được chứa thẻ HTML!",
+            "excessSpace": "Đầu vào không được chứa khoảng trắng dư thừa!"
+        }
+    },
+    "breadcrumbs": {
+        "home": "Trang chủ",
+        "admin": "Quản trị"
+    },
+    "sideBar": {
+        "home": "Trang chủ",
+        "admin": "Quản trị",
+        "users": "Người dùng",
+        "roles": "Roles",
+        "routes": "Routes",
+        "permissions": "Permissions",
+        "showHideSidebar": "Ẩn / Hiện",
+        "logAction": "Action Logs",
+        "adminTool": "Admin hệ thống",
+        "inventory": {
+            "report": {
+                "name": "Report Ads"
+            },
+            "booking": {
+                "name": "Booking",
+                "calendarLocation": "Booking theo vị trí",
+                "calendarZone": "Booking theo zone",
+                "myBooking": "Booking của tôi"
+            },
+            "bookingPr": {
+                "name": "Booking Pr"
+            },
+            "estimate": {
+                "name": "Estimate"
+            },
+            "admin": {
+                "websiteGroup": "Nhóm website",
+                "booking": "Danh sách booking",
+                "websiteBk": "Website Booking",
+                "channelBk": "Chuyên mục Booking",
+                "bannerBk": "Banner booking",
+                "locationBk": "Vị trí booking",
+                "zoneBk": "Zone booking",
+                "bundleBk": "Gói booking"
+            }
+        }
+    },
+    "modules": {
+        "admin": {
+            "common": {
+                "name": "Quản trị hệ thống",
+                "featureFlag": "Tính năng được mở"
+            },
+            "role": {
+                "common": {
+                    "notSet": "--- Không cho phép truy cập ---",
+                    "title": "Roles",
+                    "id": "Id",
+                    "name": "Tên role",
+                    "roleName": "Role name ...",
+                    "createRole": "Tạo Role",
+                    "createNewRole": "Khởi tạo Role mới",
+                    "roleInfo": "Thông tin Role",
+                    "status": "Trạng thái",
+                    "status0": "Không hoạt động",
+                    "status1": "Hoạt động",
+                    "permission": "Phân quyền",
+                    "permissionLocked": "Khoá phân quyền",
+                    "permissionLocked0": "Không khoá",
+                    "permissionLocked1": "Khoá",
+                    "nameExists": "Role đã tồn tại",
+                    "switchUser": "Chuyển tài khoản"
+                },
+                "breadcrumbs": {
+                    "name": "Role",
+                    "search": "Quản lý role",
+                    "searchDescription": "Xem danh sách, chỉnh sửa thông tin của các role trong hệ thống"
+                },
+                "validatedErrors": {
+                    "nameExist": "Name đã tồn tại trên hệ thống!",
+                    "required": "Tên role không được để trống!",
+                    "maxLength": "Tên role vượt quá giới hạn ký tự!",
+                    "minLength": "Tên role độ dài tối thiểu chưa đủ!"
+                }
+            },
+            "user": {
+                "common": {
+                    "selectAllRole": "-- Tất cả các role --",
+                    "selectAllStatus": "-- Tất cả trạng thái --",
+                    "title": "Users",
+                    "id": "Id",
+                    "username": "Tên tài khoản",
+                    "email": "Email",
+                    "source_limit": "Số lượng source giới hạn",
+                    "fullName": "Tên liên hệ",
+                    "role": "Role",
+                    "status": "Trạng thái",
+                    "status-1": "Vô hiệu hóa",
+                    "status0": "Không hoạt động",
+                    "status1": "Hoạt động",
+                    "newPassword": "Mật khẩu mới",
+                    "newPasswordConfirm": "Xác nhận mật khẩu mới",
+                    "createUser": "Khởi tạo người dùng",
+                    "createNewUser": "Khởi tạo người dùng mới",
+                    "userInfo": "Thông tin người dùng",
+                    "generatePassword": "Tạo mật khẩu",
+                    "roleName": "Tên Role",
+                    "userGroup": "Tệp người dùng app",
+                    "userGroupPlaceHolder": "Chọn tệp người dùng cho app",
+                    "allow": "Cho phép",
+                    "allow1": "Cho phép",
+                    "name": "Tên",
+                    "action": "Hành động",
+                    "allStatus": "-- Tất cả trạng thái --",
+                    "allRoles": "-- Tất cả quyền --",
+                    "search": "Tìm kiếm",
+                    "noData": "Không có dữ liệu hiển thị trong chế độ này",
+                    "google2faSecret": "Google Authenticator Secret",
+                    "firstName": "Họ",
+                    "lastName": "Tên",
+                    "apps": "Apps",
+                    "selectApps": "Chọn Apps",
+                    "selectAllApps": "Tất cả các Apps",
+                    "password": "Mật khẩu",
+                    "confirmPassword": "Xác nhận mật khẩu",
+                    "phone": "Số điện thoại",
+                    "telegramId": "Telegram ID",
+                    "searchKeywordPlaceholder": "Nhập tên hoặc email",
+                    "createdTime": "Thời gian tạo",
+                    "userId": "User ID"
+                },
+                "validatedErrors": {
+                    "passwordRequired": "Mật khẩu không được để rỗng!",
+                    "passwordMinLength": "Độ dài tối thiểu của mật khẩu là 6!",
+                    "passwordMatch": "Mật khẩu không khớp!",
+                    "emailRequired": "Email không được để rỗng!",
+                    "emailInvalid": "Email không hợp lệ!",
+                    "firstNameRequired": "Họ không được để rỗng!",
+                    "lastNameRequired": "Tên không được để rỗng!",
+                    "roleRequired": "Role không được để rỗng!",
+                    "firstNameMinLength": "Độ dài tối thiểu của họ là 2 kí tự!",
+                    "firstNameMaxLength": "Độ dài tối đa của họ là 50 kí tự!",
+                    "lastNameMinLength": "Độ dài tối thiểu của tên là 2 kí tự!",
+                    "lastNameMaxLength": "Độ dài tối đa của tên là 50 kí tự!",
+                    "domainsRequired": "Apps không được để rỗng!",
+                    "phoneInvalid": "Số điện thoại không hợp lệ!",
+                    "currentPassword": {
+                        "required": "Mật khẩu hiện tại không được để rỗng!"
+                    },
+                    "newPassword": {
+                        "required": "Mật khẩu mới không được để rỗng!",
+                        "pattern": "Mật khẩu phải từ 6 - 30 kí tự, chứa ít nhất 1 chữ số, 1 chữ cái viết hoa, 1 kí tự đặc biệt!"
+                    },
+                    "confirmPassword": {
+                        "required": "Xác nhận mật khẩu không được để rỗng!",
+                        "notMatch": "Mật khẩu không trùng khớp!"
+                    }
+                },
+                "breadcrumbs": {
+                    "name": "Thành viên",
+                    "search": "Quản lý thành viên",
+                    "searchDescription": "Xem danh sách, chỉnh sửa thông tin của các thành viên trong hệ thống",
+                    "description": "Xem danh sách thông tin thành viên trong hệ thống."
+                },
+                "notify": {
+                    "createUserSucess": "Tạo người dùng mới thành công",
+                    "createUserFailed": "Tạo người dùng mới thất bại",
+                    "accountExist": "Tài khoản đã tồn tại",
+                    "error": "Có lỗi xảy ra trong quá trình xử lý dữ liệu!"
+                }
+            },
+            "route": {
+                "common": {
+                    "title": "Routes",
+                    "name": "Tên",
+                    "route": "Route",
+                    "uri": "URI",
+                    "method": "Phương thức",
+                    "package": "Package",
+                    "controller": "Controller",
+                    "middleware": "Middleware",
+                    "allow": "Cho phép",
+                    "sync": "Đồng bộ",
+                    "namePlaceHolder": "Nhập tên route",
+                    "routePlaceHolder": "Nhập route"
+                },
+                "breadcrumbs": {
+                    "name": "Route",
+                    "search": "Quản lý route",
+                    "searchDescription": "Xem danh sách, thông tin của các route trong hệ thống"
+                }
+            },
+            "permission": {
+                "common": {
+                    "userInfo": "Thông tin User",
+                    "roleInfo": "Thông tin Role",
+                    "allRoutes": "Tất cả Routes",
+                    "assignToUser": "Phân quyền cho thành viên \"{{ username }}\"",
+                    "assignToRole": "Phân quyền cho role \"{{ roleName }}\"",
+                    "allowRoutes": "Routes được quyền truy cập",
+                    "denyRoutes": "Routes bị cấm truy cập",
+                    "extra": "Quyền bổ sung"
+                }
+            },
+            "actionLog": {
+                "common": {
+                    "userInfo": "Thông tin người dùng",
+                    "name": "Action logs",
+                    "namePlaceHolder": "Action logs ghi lại các thao tác với dữ liệu của người dùng.",
+                    "breadcrumb": "Action Logs",
+                    "userName": "Tên người dùng",
+                    "action": "Hoạt động",
+                    "module": "Module",
+                    "route": "Đường dẫn",
+                    "fullName":"Họ tên",
+                    "body": "Body",
+                    "account": "Account",
+                    "oldBody": "Old body",
+                    "param": "Params",
+                    "ip": "IP",
+                    "originalUser": "User gốc",
+                    "device": "Loại thiết bị",
+                    "email": "Email",
+                    "time": "Thời gian",
+                    "detail": "Chi tiết",
+                    "noData": "Không có dữ liệu hiển thị trong chế độ này",
+                    "userId": "User ID",
+                    "copyCode": "Sao chép mã",
+                    "copyCodeSuccess": "Sao chép mã thành công",
+                    "allAction": "-- Toàn bộ hoạt động --",
+                    "allModule": "-- Toàn bộ Module --",
+                    "allApp": "-- Toàn bộ Apps --",
+                    "app": "App - Web",
+                    "deviceMobile": "Truy cập từ điện thoại",
+                    "deviceDesktop": "Truy cập từ desktop",
+                    "searchKeywordPlaceholder": "Nhập tên hoặc email"
+                },
+                "breadcrumbs": {
+                    "search": "Ghi lại hành động của người dùng",
+                    "description": "Action logs ghi lại các thao tác với dữ liệu của người dùng.",
+                    "detail": "Chi tiết Action Log"
+                }
+            }
+        },
+        "auth": {
+            "common": {
+                "username": "Tên đăng nhập",
+                "email": "Email",
+                "password": "Mật khẩu",
+                "remember": "Lưu đăng nhập",
+                "forgotPassword": "Quên mật khẩu?",
+                "orSignInWith": "hoặc đăng nhập với",
+                "orSignInWithOtherAccount": "hoặc đăng nhập với tài khoản khác",
+                "dontHaveAccount": "Bạn chưa có tài khoản?",
+                "termCondition": "Bằng cách bấm vào nút \"Đăng nhập\", bạn xác nhận rằng bạn đã đọc Điều khoản & Điều kiện và Chính sách cookie của chúng tôi.",
+                "buttons": {
+                    "signIn": "Đăng nhập",
+                    "signUp": "Đăng ký",
+                    "logout": "Đăng xuất",
+                    "backToUserOriginal": "Trở về tài khoản của bạn"
+                },
+                "message": {
+                    "error": {
+                        "unknown": "Có lỗi trong quá trình xử lý dữ liệu. Xin bạn vui lòng thử lại!",
+                        "wrongEmailOrPassword": "Sai tên truy cập hoặc mật khẩu!",
+                        "wrongOTP": "Mã xác thực hai bước không chính xác!",
+                        "wrongOrInvalidEmail": "Có lỗi xảy ra hoặc email không thuộc tổ chức!",
+                        "wrongUserNameOrPassword": "Sai tên truy cập hoặc mật khẩu!",
+                        "notPermission": "Chưa được bật quyền truy cập, vui lòng liên hệ với Admin!"
+                    }
+                }
+            },
+            "login": {
+                "title": "Đăng nhập",
+                "loginToAccount": "Đăng nhập vào tài khoản của bạn",
+                "enterCredential": "Nhập thông tin đăng nhập của bạn bên dưới",
+                "emailPlaceHolder": "Nhập địa chỉ email của bạn",
+                "passwordPlaceHolder": "•••••••••••",
+                "userNamePlaceHolder": "Nhập tên đăng nhập"
+            },
+            "otp": {
+                "title": "Xác Thực Hai Bước",
+                "inputPlaceHolder1": "Nhập Mã Xác Minh Chữ số 1",
+                "inputPlaceHolder2": "Nhập Mã Xác Minh Chữ số 2",
+                "inputPlaceHolder3": "Nhập Mã Xác Minh Chữ số 3",
+                "inputPlaceHolder4": "Nhập Mã Xác Minh Chữ số 4",
+                "inputPlaceHolder5": "Nhập Mã Xác Minh Chữ số 5",
+                "inputPlaceHolder6": "Nhập Mã Xác Minh Chữ số 6"
+            },
+            "google": {
+                "common": {
+                    "loading": "Đang tải dữ liệu..."
+                },
+                "callback": {
+                    "description": "Vui lòng không đóng của sổ và chờ trong giây lát!",
+                    "closeWindow": "Đóng cửa sổ"
+                }
+            }
+        },
+        "error": {
+            "common": {
+                "title": "Rất tiếc, đã xảy ra lỗi"
+            },
+            "403": {
+                "title": "Truy cập của bạn có thể bị lỗi hoặc không tìm thấy nội dung"
+            },
+            "404": {
+                "title": "Truy cập của bạn có thể bị lỗi hoặc không tìm thấy nội dung"
+            },
+            "500": {
+                "title": "Truy cập của bạn có thể bị lỗi hoặc không tìm thấy nội dung"
+            }
+        },
+        "user": {
+            "common": {
+                "profile": "Tài khoản",
+                "userId": "User ID",
+                "username": "Tên tài khoản",
+                "email": "Email",
+                "changePassword": "Thay đổi mật khẩu",
+                "currentPassword": "Mật khẩu hiện tại",
+                "newPassword": "Mật khẩu mới",
+                "confirmPassword": "Xác nhận mật khẩu",
+                "guideDoc": "Tài liệu hướng dẫn"
+            },
+            "validatedErrors": {
+                "confirmPasswordNotMatch": "Mật khẩu xác nhận không trùng khớp!",
+                "currentPasswordNotCorrect": "Mật khẩu hiện tại không chính xác!",
+                "currentPassword": {
+                    "required": "Mật khẩu hiện tại là bắt buộc!"
+                },
+                "newPassword": {
+                    "required": "Mật khẩu mới là bắt buộc!",
+                    "pattern": "Mật khẩu phải từ 6 - 30 kí tự, chứa ít nhất 1 chữ số, 1 chữ cái viết hoa, 1 kí tự đặc biệt!"
+                },
+                "confirmPassword": {
+                    "required": "Xác nhận mật khẩu là bắt buộc!",
+                    "notMatch": "Mật khẩu không trùng khớp!"
+                }
+            }
+        },
+        "page": {
+            "policy": {
+                "title": "Chính sách bảo mật"
+            }
+        },
+        "inventory": {
+            "common": {
+                "statusActive": "Hoạt động",
+                "statusDisabled": "Vô hiệu hóa",
+                "allStatus": "-- Tất cả trạng thái --",
+                "home": "Trang chủ",
+                "welcome": "Chào mừng đến với CDP",
+                "statsWelcome": "CDP là một nền tảng phần mềm được sử dụng để thu thập và quản lý dữ liệu. CDP cho phép xác định phân khúc đối tượng. Được sử dụng để nhắm mục tiêu người dùng và bối cảnh cụ thể trong các chiến dịch quảng cáo",
+                "numberSource": "Số lượng sources",
+                "numberProfiles": "Số lượng profiles",
+                "numberSegments": "Số lượng segments",
+                "numberActivation": "Số lượng activations"
+            },
+            "admin": {
+                "listUser": "Quản lý thành viên",
+                "listBooking": "Quản lý booking",
+                "listWebsite": "Quản lý website",
+                "listChannel": "Quản lý chuyên mục",
+                "listBanner": "Quản lý banner",
+                "listBundle": "Quản lý gói nội dung",
+                "listLocation": "Quản lý vị trí",
+                "listZone": "Quản lý vị trí zone",
+                "listWebsiteGroup": "Quản lý nhóm website"
+            },
+            "booking": {
+                "common": {
+                    "calendarLocation": "Lịch vị trí booking",
+                    "calendarZone": "Lịch zone booking",
+                    "myBooking": "Booking của tôi"
+                }
+            }
+        }
+    }
+}

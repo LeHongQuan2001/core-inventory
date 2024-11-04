@@ -1,0 +1,123 @@
+::ng-deep {
+    .wp-administrator-log-action {
+        .logo-app {
+            object-fit: contain;
+        }
+
+        .data-table-action-log {
+            .cover {
+                width: 40px;
+                height: 40px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+        }
+
+        .button-datepicker {
+            position: relative;
+            width: 250px;
+
+            > i {
+                position: absolute;
+                top: 9px;
+                left: 10px;
+            }
+
+            .date-range-picker {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                padding-top: 8px;
+                padding-left: 24px;
+            }
+        }
+
+        .filter-item {
+            width: 250px;
+
+            .select2-container {
+                width: 100% !important;
+            }
+        }
+
+        .auto-filter-el {
+            cursor: pointer;
+            &:hover {
+                color: #0c83ff
+            }
+        }
+
+        @media screen and (max-width: 1750px) {
+            .data-table-action-log {
+                overflow-x: auto;
+            }
+        }
+
+        /*Ipad ngang(1024 x 768)*/
+        @media screen and (max-width: 1024px){
+            .mat-column-username{
+                width: 350px;
+            }
+            .mat-column-time {
+                width: 200px;
+            }
+            .mat-column-module {
+                width: 150px;
+            }
+            .mat-column-ipAndDevice {
+                width: 200px;
+            }
+            .mat-column-route {
+                width: 400px;
+            }
+            .mat-column-action {
+                width: 140px;
+            }
+        }
+        /*Ipad dọc(768 x 1024)*/
+        @media screen and (max-width: 768px){
+            .mat-column-username {
+                width: 350px;
+            }
+            .mat-column-module {
+                width: 150px;
+            }
+            .mat-column-route {
+                width: 400px;
+            }
+        }
+
+        @media screen and (max-width: 575px){
+            .filter-item {
+                width: 100%;
+            }
+        }
+
+        /*Tablet nhỏ(480 x 640)*/
+        @media screen and (max-width: 480px){
+            .mat-column-username {
+                width: 350px;
+            }
+        }
+        /*Iphone(480 x 640)*/
+        @media screen and (max-width: 320px){
+            .mat-column-username {
+                width: 350px;
+            }
+            .mat-column-time {
+                width: 200px;
+            }
+        }
+        /*Smart phone nhỏ*/
+        @media screen and (max-width: 240px){
+            .mat-column-username {
+                width: 350px;
+            }
+            .mat-column-time {
+                width: 200px;
+            }
+        }
+    }
+}

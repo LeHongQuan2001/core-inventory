@@ -1,0 +1,132 @@
+<div class="wp-administrator-route">
+    <div class="page-header">
+        <div class="page-header-content d-lg-flex flex-lg-wrap border-bottom">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a [routerLink]="['/']" class="breadcrumb-item py-2"><i class="ph-house me-2"></i> {{ 'breadcrumbs.home' | translate }}</a>
+                    <span class="breadcrumb-item active py-2">{{ 'breadcrumbs.admin' | translate }}</span>
+                    <span class="breadcrumb-item active py-2">{{ 'modules.admin.route.breadcrumbs.name' | translate }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header-content d-lg-flex flex-lg-wrap">
+            <div class="page-title pt-2 pb-0">
+                <h5 class="mb-0">
+                    {{ 'modules.admin.route.breadcrumbs.name' | translate }} - <span class="fw-normal">{{ 'modules.admin.route.breadcrumbs.search' | translate }}</span>
+                </h5>
+                <div class="text-muted">{{ 'modules.admin.route.breadcrumbs.searchDescription' | translate }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="card mb-0">
+            <div class="card-header p-2 pb-0">
+                <div class="row">
+                    <div class="col-xl-12">
+
+                        <div class="form-group mb-2 float-start search-route me-2">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="ph-funnel"></i></span>
+                                <input type="text" [(ngModel)]="keyword" (keydown.enter)="getData()" class="form-control"
+                                    placeholder="{{ 'common.placeholder' | translate }}">
+                            </div>
+                        </div>
+                        <div class="form-group mb-2 float-start">
+                            <button class="btn btn-primary" (click)="getData()">{{ 'common.button.search' | translate }} <i class="ph ph-magnifying-glass ms-1 icon-small"></i></button>
+                        </div>
+                        <div class="form-group mb-2 float-end">
+                            <button class="btn btn-primary" (click)="openDialogSync()">{{ 'modules.admin.route.common.sync' | translate }} <i class="ph ph-arrows-clockwise ms-1 icon-small"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table #table mat-table [dataSource]="routes" class="table table-sm table-hover table-layout-fixed" aria-describedby="table-routes">
+                    <ng-container matColumnDef="sequence">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="80" [style.min-width.px]="80" [style.max-width.px]="200">#</th>
+                        <td mat-cell *matCellDef="let route" class="text-center">
+                            {{ route.id }}
+                        </td>
+                    </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white">{{ 'modules.admin.route.common.name' | translate }}</th>
+                        <td mat-cell *matCellDef="let route">
+                            <span class="route-item"
+                                  *ngIf="editNameId !== route.id"
+                                  (click)="editName(route.route, route)" (focus)="editName(route.route, route);"
+                                  matTooltip="{{ 'common.clickToEdit' | translate }}"
+                                  matTooltipPosition="above">{{ route.name }}</span>
+                            <div class="input-group" *ngIf="editNameId === route.id"  style="width: 400px;">
+                                <input class="form-control" #inlineEditControlName (keypress)="onKeyPressName($event, route)" [required]="required" [value]="route.name" [type]="'text'" placeholder="{{ 'modules.admin.route.common.namePlaceHolder' | translate }}" />
+                                <button class="btn btn-danger btn-icon" type="button"
+                                        (click)="editNameId = ''">
+                                    <i class="ph-x"></i>
+                                </button>
+                                <button class="btn btn-success btn-icon" type="button"
+                                        [disabled]="!inlineEditControlName.value"
+                                        (click)="saveName(route)">
+                                    <span>{{ 'common.button.ok' | translate }}</span><i class="ph-check ms-1"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="route">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white" [style.width.px]="400">{{ 'modules.admin.route.common.route' | translate }}</th>
+                        <td mat-cell *matCellDef="let route">
+                            <span class="route-item"
+                                  *ngIf="editRouteId !== route.id"
+                                  (click)="editRoute(route.route, route)" (focus)="editRoute(route.route, route);"
+                                  matTooltip="{{ 'common.clickToEdit' | translate }}"
+                                  matTooltipPosition="above">{{ route.route }}</span>
+                            <div class="input-group" *ngIf="editRouteId === route.id"  style="width: 300px;">
+                                <input class="form-control" #inlineEditControlRoute (keypress)="onKeyPressRoute($event, route)" [required]="required" [value]="route.route" [type]="'text'" placeholder="{{ 'modules.admin.route.common.routePlaceHolder' | translate }}" />
+                                <button class="btn btn-danger btn-icon" type="button"
+                                        (click)="editRouteId = ''">
+                                    <i class="ph-x"></i>
+                                </button>
+                                <button class="btn btn-success btn-icon" type="button"
+                                        [disabled]="!inlineEditControlRoute.value"
+                                        (click)="saveRoute(route)">
+                                    <span>{{ 'common.button.ok' | translate }}</span><i class="ph-check ms-1"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="uri">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white" [style.width.px]="400">{{ 'modules.admin.route.common.uri' | translate }}</th>
+                        <td mat-cell *matCellDef="let route">
+                            {{ route.uri }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="method">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white text-center" [style.width.px]="150">{{ 'modules.admin.route.common.method' | translate }}</th>
+                        <td mat-cell *matCellDef="let route" class="text-center">
+                            <ng-container *ngFor="let method of route.methods">
+                                <span class="badge"
+                                      [ngClass]="{'bg-danger': method === 'DELETE', 'bg-primary': method === 'GET', 'bg-success': method === 'POST' || method === 'PUT'}">{{ method }}</span>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+            <div *ngIf="routes" [ngClass]="{'border-top': routes}" class="rounded-bottom-start rounded-bottom-end d-flex justify-content-end">
+                <app-paginator [class]="routes.length == 0 ? 'd-none' : 'rounded-bottom-start rounded-bottom-end'"
+                               [pageSizeOptions]="pageSizeOptions"
+                               [pageSize]="pageSize"
+                               [pageIndex]="pageIndex"
+                               [length]="length"
+                               (page)="getPaginator($event)"></app-paginator>
+            </div>
+            <div class="text-center p-2" *ngIf="routes.length == 0">
+                <i class="mi-inbox"></i>
+                <div class="text-muted">{{ 'common.dataNotFound' | translate }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+

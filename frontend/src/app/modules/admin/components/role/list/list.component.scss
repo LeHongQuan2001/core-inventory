@@ -1,0 +1,54 @@
+::ng-deep {
+    .wp-administrator-role {
+        .mdc-data-table__cell {
+            overflow: unset !important;
+        }
+
+        .search-role {
+            width: 350px;
+        }
+
+        .form-select-2-all-status {
+            width: 350px !important;
+        }
+
+        /*Ipad ngang(1024 x 768)*/
+        @media screen and (max-width: 1024px) {
+            .mat-column-name, .mat-column-email {
+                width: 500px;
+            }
+        }
+        /*Ipad dọc(768 x 1024)*/
+        @media screen and (max-width: 768px) {
+            .mat-column-name {
+                width: 500px;
+            }
+        }
+        /*Tablet nhỏ(480 x 640)*/
+        @media screen and (max-width: 480px) {
+            .mat-column-name {
+                width: 300px;
+            }
+
+            .search-role {
+                width: 100%;
+            }
+
+            .form-select-2-all-status {
+                width: 100% !important;
+            }
+        }
+        /*Iphone(480 x 640)*/
+        @media screen and (max-width: 320px) {
+            .mat-column-name {
+                width: 300px;
+            }
+        }
+        /*Smart phone nhỏ*/
+        @media screen and (max-width: 240px) {
+            .mat-column-name {
+                width: 200px;
+            }
+        }
+    }
+}

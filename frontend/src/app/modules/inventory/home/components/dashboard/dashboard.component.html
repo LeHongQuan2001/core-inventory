@@ -1,0 +1,83 @@
+<div class="page-header">
+    <div class="page-header-content d-lg-flex flex-lg-wrap border-bottom">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <span class="breadcrumb-item active py-2">
+                        <i class="ph-house me-2"></i> {{ 'breadcrumbs.home' | translate }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="page-header-content d-lg-flex flex-lg-wrap">
+        <div class="page-title pt-2 pb-0">
+            <h5 class="mb-0">{{ 'modules.cdp.common.welcome' | translate }}</h5>
+            <div class="text-muted">{{ 'modules.cdp.common.statsWelcome' | translate }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-report p-3 pt-2">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-lg-3">
+                    <a [routerLink]="['/', 'source', 'list']"
+                       [routerLinkActive]="'active'">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <h3 class="mb-0">{{ report?.totalAudience ?? 0 | number }}</h3>
+                                    <span class="badge bg-opacity-50 align-self-center ms-auto"><i class="ph ph-database ph-2x"></i></span>
+                                </div>
+                                <div>{{ 'modules.cdp.common.numberSource' | translate }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a [routerLink]="['/', 'profile', 'list']"
+                       [routerLinkActive]="'active'">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <h3 class="mb-0">{{ report?.totalWebsite ?? 0 | number }}</h3>
+                                    <span class="badge bg-opacity-50 align-self-center ms-auto"><i class="ph ph-user ph-2x"></i></span>
+                                </div>
+                                <div>{{ 'modules.cdp.common.numberProfiles' | translate }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a [routerLink]="['/', 'segment', 'list']"
+                       [routerLinkActive]="'active'">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <h3 class="mb-0">{{ report?.totalGroup ?? 0 | number }}</h3>
+                                    <span class="badge bg-opacity-50 align-self-center ms-auto"><i class="ph ph-crosshair ph-2x"></i></span>
+                                </div>
+                                <div>{{ 'modules.cdp.common.numberSegments' | translate }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a [routerLink]="['/', 'activation', 'list']"
+                       [routerLinkActive]="'active'">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <h3 class="mb-0">{{ report?.totalSegment ?? 0 | number }}</h3>
+                                    <span class="badge bg-opacity-50 align-self-center ms-auto"><i class="ph ph-megaphone-simple ph-2x"></i></span>
+                                </div>
+                                <div>{{ 'modules.cdp.common.numberActivation' | translate }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

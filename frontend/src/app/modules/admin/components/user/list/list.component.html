@@ -1,0 +1,189 @@
+<div class="wp-administrator-user">
+    <div class="page-header">
+        <div class="page-header-content d-lg-flex flex-lg-wrap border-bottom">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a [routerLink]="['/']" class="breadcrumb-item py-2"><i
+                            class="ph-house me-2"></i> {{ 'breadcrumbs.home' | translate }}</a>
+                    <span class="breadcrumb-item active py-2">{{ 'breadcrumbs.admin' | translate }}</span>
+                    <span class="breadcrumb-item active py-2">{{ 'modules.admin.user.breadcrumbs.name' | translate }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="page-header-content d-lg-flex flex-lg-wrap">
+            <div class="page-title pt-2 pb-0">
+                <h5 class="mb-0">
+                    {{ 'modules.admin.user.breadcrumbs.name' | translate }} -
+                    <span class="fw-normal">{{ 'modules.admin.user.breadcrumbs.search' | translate }}</span>
+                </h5>
+                <div class="text-muted">{{ 'modules.admin.user.breadcrumbs.searchDescription' | translate }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="content wp-list-user-content">
+        <div class="card mb-0">
+            <div class="card-header p-2 pb-0">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group mb-2 float-start me-2 search-user" [style.width.px]="300">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="ph-funnel"></i></span>
+                                <input type="text" [(ngModel)]="keyword"
+                                       (keydown.enter)="getDataUser(true)"
+                                       class="form-control" placeholder="{{ 'modules.admin.user.common.searchKeywordPlaceholder' | translate }}">
+                            </div>
+                        </div>
+                        <div class="form-group mb-2 float-start me-2 form-select-2">
+                            <select class="form-control select select2-hidden-accessible user-role" *ngIf="roles">
+                                <option value="-1">{{ 'modules.admin.user.common.selectAllRole' | translate }}</option>
+                                <option *ngFor="let r of roles" [value]="r.id" [selected]="r.id == role">{{ r.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-2 float-start me-2 form-select-2">
+                            <select class="form-control select select2-hidden-accessible user-status"
+                                    *ngIf="roles"
+                                    [(ngModel)]="statusSearch">
+                                <option value="">{{ 'modules.admin.user.common.selectAllStatus' | translate }}</option>
+                                <option *ngFor="let s of statuses"
+                                        [value]="s">{{ 'modules.admin.user.common.status' + s | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-2 float-start">
+                            <button class="btn btn-primary" (click)="getDataUser(true)">{{ 'common.button.search' | translate }}
+                                <i class="ph ph-magnifying-glass ms-1 icon-small"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table #table mat-table [dataSource]="users" class="table table-sm table-hover table-layout-fixed"
+                       aria-describedby="table-users">
+                    <ng-container matColumnDef="sequence">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="80"
+                            [style.min-width.px]="80" [style.max-width.px]="200">#
+                        </th>
+                        <td mat-cell *matCellDef="let user ; let i = index" class="text-center">
+                            <span>{{ i + 1 + (pageIndex - 1) * pageSize }}</span>
+                        </td>
+                    </ng-container>
+                    
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef
+                            class="bg-dark text-white">{{ 'modules.admin.user.common.username' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let user">
+                            <div class="d-flex">
+                                <div class="cover"
+                                     [style]="'background-image: url(' + avatarDefaultImgUrl+ ')'">
+                                </div>
+                                <div class="ms-2">
+                                    <span class="text-primary" [ngClass]="{'cursor-pointer' : user.roleId !== 1}"
+                                          (click)="openRolePermission(user)">
+                                        {{ user.username }}
+                                    </span>
+                                    <ul class="list list-unstyled list-inline mb-0">
+                                        <li class="list-inline-item text-muted font-size-base">
+                                            <i class="ph ph-calendar-blank" matTooltip="{{'modules.admin.user.common.createdTime' | translate}}"></i>{{ user.createdAt | date: 'HH:mm dd/MM/YYYY' }}
+                                        </li>
+                                        <li class="list-inline-item text-muted font-size-base">
+                                            <i class="ph ph-user-circle" matTooltip="{{'modules.admin.user.common.userId' | translate}}"></i>{{ user.id }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white">
+                            <i class="ph ph-envelope me-1"></i>
+                            {{ 'modules.admin.user.common.email' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let user">
+                            {{ user.email }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white text-center"
+                            [style.width.px]="150">{{ 'modules.admin.user.common.status' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let user" class="text-truncate text-center">
+                            <span class="badge bg-warning fw-normal"
+                                  *ngIf="user?.status == -1">{{ 'modules.admin.user.common.status-1'| translate }} </span>
+                            <span class="badge bg-danger fw-normal"
+                                  *ngIf="user?.status == 0">{{ 'modules.admin.user.common.status' + user?.status | translate }}</span>
+                            <span class="badge bg-success fw-normal"
+                                  *ngIf="user?.status == 1">{{ 'modules.admin.user.common.status' + user?.status| translate }}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white text-center"
+                            [style.width.px]="230">{{ 'modules.admin.user.common.role' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let user" class="text-truncate mw-100 text-center">
+                            <select name="" [disabled]="user.roleId === 1"
+                                    class="form-control select select-fixed-single user-set-role"
+                                    *ngIf="roles" [attr.data-user-id]="user.id">
+                                <option [value]="role.id" *ngFor="let role of roles" [selected]="role.id == user.roleId"
+                                        [disabled]="role.id === 1">
+                                    {{ role.name }}
+                                </option>
+                            </select>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white text-center"
+                            [style.width.px]="90"></th>
+                        <td mat-cell *matCellDef="let user" class="text-center">
+                            <ng-container *ngIf="user.roleId !== 1">
+                                <div class="dropdown">
+                                    <button mat-icon-button data-bs-toggle="dropdown">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item cursor-pointer" (click)="openRolePermission(user)">
+                                                <i class="ph ph-path me-2"></i>
+                                                {{ 'modules.admin.role.common.permission' | translate }}
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-divider"
+                                            *ngIf="currentUser && currentUser.userId !== user.id && user.status === 1"></li>
+                                        <li *ngIf="currentUser && currentUser.userId !== user.id && user.status === 1">
+                                            <a class="dropdown-item cursor-pointer" (click)="openUserSwitch(user)">
+                                                <i class="ph ph-arrows-left-right me-2"></i>
+                                                {{ 'modules.admin.role.common.switchUser' | translate }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+            <div *ngIf="length" [ngClass]="{'border-top': users}"
+                 class="rounded-bottom-start rounded-bottom-end d-flex justify-content-end">
+                <app-paginator
+                        [class]="length == 0 ? 'd-none' : 'rounded-bottom-start rounded-bottom-end'"
+                        [pageSizeOptions]="pageSizeOptions"
+                        [pageSize]="pageSize"
+                        [pageIndex]="pageIndex"
+                        [length]="length"
+                        (page)="getPaginator($event)">
+                </app-paginator>
+            </div>
+            <div class="text-center p-2" *ngIf="users.length == 0">
+                <i class="mi-inbox"></i>
+                <div class="text-muted">{{ 'modules.admin.user.common.noData' | translate }}</div>
+            </div>
+        </div>
+    </div>
+</div>

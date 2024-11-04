@@ -1,0 +1,144 @@
+<div class="col-xl-12 pt-2 pb-2 dialog-header">
+    <h5 class="font-weight-bold m-0 ms-1"><i class="ph ph-files me-1 fw-bold"></i>
+        {{ 'modules.admin.actionLog.breadcrumbs.detail' | translate }}
+    </h5>
+    <span class="icon-close-dialog" mat-dialog-close>
+        <i class="ph ph-x"></i>
+    </span>
+</div>
+<div class="mat-typography p-2">
+    <div class="row mb-2">
+        <div class="col-xl-6" [ngClass]="{'col-xl-6': actionLog.originalUser.id, 'col-xl-12': !actionLog.originalUser.id}">
+            <label class="form-label"><strong>{{ 'modules.admin.actionLog.common.account' | translate }}</strong></label>
+            <div class="border border-radius p-3">
+                <div class="mb-2">
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.userId' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.user.id }}</span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.fullName' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.user.fullName }}</span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.userName' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.user.username }}</span>
+                </div>
+                <div>
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.email' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.user.email }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6" *ngIf="actionLog.originalUser.id">
+            <label class="form-label"><strong>{{ 'modules.admin.actionLog.common.originalUser' | translate }}</strong></label>
+            <div class="border border-radius p-3">
+                <div class="mb-2">
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.userId' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.originalUser.id }}</span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.fullName' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.originalUser.fullName }}</span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.userName' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.originalUser.username }}</span>
+                </div>
+                <div>
+                    <label class="form-label me-1"><strong>{{ 'modules.admin.actionLog.common.email' | translate }}
+                        :</strong></label>
+                    <span>{{ actionLog.originalUser.email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <label class="form-label"><strong>{{ 'modules.admin.actionLog.common.route' | translate }}</strong></label>
+            <div class="form-control-feedback mb-2">
+                <input type="text" value="{{actionLog.path}}" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <label class="form-label"><strong>{{ 'modules.admin.actionLog.common.device' | translate }}</strong></label>
+            <div class="form-control-feedback mb-2">
+                <input type="text" value="{{actionLog.ip}} - {{actionLog.device}}" class="form-control" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <label class="form-label"><strong>{{ 'modules.admin.actionLog.common.module' | translate }}</strong></label>
+            <div class="form-control-feedback mb-2">
+                <input type="text" value="{{actionLog.module}}" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label class="form-label"><strong>{{ 'modules.admin.actionLog.common.action' | translate }}</strong></label>
+            <div class="form-control-feedback mb-2">
+                <input type="text" value="{{actionLog.action}}" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label class="form-label"><strong>{{ 'modules.admin.actionLog.common.time' | translate }}</strong></label>
+            <div class="form-control-feedback mb-2">
+                <input type="text" value="{{actionLog.createdAt}}" class="form-control" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="form-control-feedback mb-2 code-toolbar border border-radius style-scroll"
+         *ngIf="!checkObjectEmpty(actionLog.params)">
+        <div class="p-2">
+            <strong class="mb-0">{{ 'modules.admin.actionLog.common.param' | translate }}</strong>
+        </div>
+        <pre class="language-javascript mt-0 body-code param">
+            <code class="mt-0 d-block">{{ actionLog.params | json }}</code>
+        </pre>
+        <div class="d-flex justify-content-end">
+            <i class="ph ph-copy-simple p-1 text-muted cursor-pointer"
+               matTooltip="{{'modules.admin.actionLog.common.copyCode' | translate}}"
+               (click)="copyCode(actionLog.params)"></i>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf="actionLog.action === 'PUT' && actionLog.oldBody" class="col-md-6">
+            <div class="form-control-feedback mb-2 code-toolbar border border-radius style-scroll">
+                <div class="p-2">
+                    <strong class="mb-0">{{ 'modules.admin.actionLog.common.oldBody' | translate }}</strong>
+                </div>
+                <pre class="language-javascript mt-0 body-code">
+                    <code class="mt-0 d-block">{{ actionLog.oldBody | json }}</code>
+                </pre>
+                <div class="d-flex justify-content-end">
+                    <i class="ph ph-copy-simple p-1 text-muted cursor-pointer"
+                       matTooltip="{{'modules.admin.actionLog.common.copyCode' | translate}}"
+                       (click)="copyCode(actionLog.oldBody)"></i>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="{'col-md-6': actionLog.action === 'PUT' && actionLog.oldBody, 'col-md-12': actionLog.action !== 'PUT'}">
+            <div class="form-control-feedback mb-2 code-toolbar border border-radius style-scroll">
+                <div class="p-2">
+                    <strong class="mb-0">{{ 'modules.admin.actionLog.common.body' | translate }}</strong>
+                </div>
+                <pre class="language-javascript mt-0 body-code">
+                    <code class="mt-0 d-block">{{ actionLog.body | json }}</code>
+                </pre>
+                <div class="d-flex justify-content-end">
+                    <i class="ph ph-copy-simple p-1 text-muted cursor-pointer"
+                       matTooltip="{{'modules.admin.actionLog.common.copyCode' | translate}}"
+                       (click)="copyCode(actionLog.body)"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

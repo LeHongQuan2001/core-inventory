@@ -1,0 +1,41 @@
+::ng-deep {
+    .notify-create-user {
+        .ng-invalid-custom {
+            .select2.select2-container .selection .select2-selection.select2-selection--multiple {
+                border-color: #EF4444 !important;
+            }
+        }
+        input, textarea {
+            &.ng-invalid {
+                border-color: #d1d5db !important;
+            }
+
+            &.ng-invalid-custom {
+                border-color: #EF4444 !important;
+            }
+        }
+
+        .style-input-password {
+            width: calc(100% - 140px);
+        }
+
+        .style-button-password {
+            width: 140px;
+        }
+
+        .r-20 {
+            right: 20px !important;
+        }
+
+        .icon-suffix {
+            right: 12px;
+            top: 40px;
+            position: absolute;
+        }
+      
+        .input-password {
+            padding-right: 30px;
+        }
+
+    }
+}

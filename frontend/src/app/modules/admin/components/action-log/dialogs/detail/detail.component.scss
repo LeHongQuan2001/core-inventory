@@ -1,0 +1,13 @@
+::ng-deep .admin-dialog-action-detail {
+    .body-code {
+        max-height: 300px;
+        overflow-y: auto;
+        height: 300px;
+    }
+    .bg-syntax {
+        background: #F9FAFB;
+    }
+    .param {
+        height: 200px;
+    }
+}

@@ -1,0 +1,18 @@
+<!-- Footer -->
+<div class="navbar navbar-sm navbar-footer-new border-top" id="footer">
+    <div class="container-fluid">
+        <span>&copy; 2024 <a [routerLink]="['/']">{{ 'common.domain' | translate }}</a></span>
+
+        <ul class="nav">
+            <li class="nav-item ms-md-1">
+                <a (click)="openLinkGuideDoc()" class="navbar-nav-link navbar-nav-link-icon rounded cursor-pointer">
+                    <div class="d-flex align-items-center mx-md-1">
+                        <i class="ph-file-text"></i>
+                        <span class="d-none d-md-inline-block ms-2">{{ 'modules.user.common.guideDoc' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /footer -->

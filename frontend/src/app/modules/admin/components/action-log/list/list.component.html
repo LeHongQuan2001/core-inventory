@@ -1,0 +1,176 @@
+<div class="wp-administrator-log-action">
+    <div class="page-header">
+        <div class="page-header-content d-lg-flex flex-lg-wrap border-bottom">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a [routerLink]="['/']" class="breadcrumb-item py-2"><i
+                            class="ph-house me-2"></i> {{ 'breadcrumbs.home' | translate }}</a>
+                    <span class="breadcrumb-item active py-2">{{ 'breadcrumbs.admin' | translate }}</span>
+                    <span class="breadcrumb-item active py-2">{{ 'modules.admin.actionLog.common.breadcrumb' | translate }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="page-header-content d-lg-flex flex-lg-wrap">
+            <div class="page-title pt-2 pb-0">
+                <h5 class="mb-0">
+                    {{ 'modules.admin.actionLog.common.breadcrumb' | translate }} -
+                    <span class="fw-normal">{{ 'modules.admin.actionLog.breadcrumbs.search' | translate }}</span>
+                </h5>
+                <div class="text-muted">{{ 'modules.admin.actionLog.breadcrumbs.description' | translate }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="card mb-0">
+            <div class="card-header p-2 pb-0">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group filter-item mb-2 float-start me-0 me-sm-2">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="ph-funnel"></i></span>
+                                <input type="text" [(ngModel)]="keyword" (keydown.enter)="getData(true)" class="form-control"
+                                       placeholder="{{ 'modules.admin.actionLog.common.searchKeywordPlaceholder' | translate }}">
+
+                            </div>
+                        </div>
+                        <div class="">
+                            <button type="button" class="btn btn-light button-datepicker mb-2 float-start me-sm-2">
+                                <i class="ph-calendar me-2"></i>
+                                <span class="date-range-picker">
+                                    <span></span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="form-group filter-item mb-2 float-start me-0 me-sm-2">
+                            <select class="form-control select action-log-select-action"
+                                    data-minimum-results-for-search="Infinity"></select>
+                        </div>
+                        <div class="form-group filter-item mb-2 float-start me-0 me-sm-2">
+                            <select class="form-control select action-log-select-module"
+                                    data-minimum-results-for-search="Infinity"></select>
+                        </div>
+                        <div class="form-group filter-item mb-2 float-start">
+                            <button class="btn btn-primary" (click)="getData(true)">{{ 'common.button.search' | translate }}
+                                <i class="ph ph-magnifying-glass ms-1 icon-small"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive data-table-action-log">
+                <table mat-table [dataSource]="dataSourceActionLogs"
+                       class="table table-sm table-hover table-layout-fixed"
+                       aria-describedby="table-log-data-actions">
+                    <ng-container matColumnDef="sequence">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="70">#</th>
+                        <td mat-cell *matCellDef="let i = index" class="text-center">
+                            {{ i + 1 + (pageIndex - 1) * pageSize }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="account">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white ps-0" [style.width.px]="350">
+                            {{ 'modules.admin.actionLog.common.account' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let log" class="ps-0">
+                            <div class="d-flex">
+                                <div class="cover"
+                                     [style]="'background-image: url(' + defaultAvatar + ')'">
+                                </div>
+                                <div class="ms-2">
+                                    <span class="text-primary cursor-pointer" (click)="openDetail(log)">
+                                        {{ log.user.username }}
+                                    </span>
+                                    <ul class="list list-unstyled list-inline mb-0">
+                                        <li class="list-inline-item text-muted font-size-base" *ngIf="log.user.email">
+                                            <i class="ph ph-envelope text-muted icon-small-17"
+                                               matTooltip="{{ 'modules.admin.actionLog.common.email' | translate }}">
+                                            </i>
+                                            {{ log.user.email }}
+                                        </li>
+                                        <li class="list-inline-item text-muted font-size-base" *ngIf="log.originalUser.id">
+                                            <i class="ph ph-user-switch text-muted icon-small-17"
+                                               matTooltip="{{ 'modules.admin.actionLog.common.originalUser' | translate }}">
+                                            </i>
+                                            {{ log.originalUser.id }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ipAndDevice">
+                        <th mat-header-cell *matHeaderCellDef class="text-start bg-dark text-white" [style.width.px]="200">
+                            {{ 'modules.admin.actionLog.common.ip' | translate }} - {{ 'modules.admin.actionLog.common.device' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let log" class="text-start">
+                            {{ log.ip }} -
+                            <i class="ph"
+                               [matTooltip]="(log.device === 'mobile' ? 'modules.admin.actionLog.common.deviceMobile' :'modules.admin.actionLog.common.deviceDesktop') | translate"
+                               [ngClass]="log.device === 'mobile' ? 'ph-device-mobile' :'ph-desktop' "></i>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="module">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="150">
+                            {{ 'modules.admin.actionLog.common.module' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let log" class="text-center">
+                            <span class="auto-filter-el" (click)="autoFilter(log, 1)">{{ log.module }}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="route">
+                        <th mat-header-cell *matHeaderCellDef class="text-start bg-dark text-white" [style.width.px]="300">
+                            {{ 'modules.admin.actionLog.common.route' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let log" class="text-left">
+                            {{ log.path }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="140">
+                            {{ 'modules.admin.actionLog.common.action' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let log" class="text-center">
+                            <span class="auto-filter-el" (click)="autoFilter(log, 2)">{{ log.action }}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="time">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="200">
+                            {{ 'modules.admin.actionLog.common.time' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let log" class="text-center">
+                            {{ log.createdAt }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actionLog">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="50"></th>
+                        <td mat-cell *matCellDef="let log" class="text-center">
+                            <a class="cursor-pointer"
+                               (click)="openDetail(log)"
+                                matTooltip="{{ 'modules.admin.actionLog.common.detail' | translate }}">
+                                <i class="ph ph-files me-2"></i>
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+            <div *ngIf="length" [ngClass]="{'border-top': actionLogs}"
+                 class="rounded-bottom-start rounded-bottom-end d-flex justify-content-end">
+                <app-paginator
+                        [class]="length == 0 ? 'd-none' : 'rounded-bottom-start rounded-bottom-end'"
+                        [pageSizeOptions]="pageSizeOptions"
+                        [pageSize]="pageSize"
+                        [pageIndex]="pageIndex"
+                        [length]="length"
+                        (page)="getPaginator($event)">
+                </app-paginator>
+            </div>
+            <div class="text-center p-2" *ngIf="length == 0">
+                <i class="mi-inbox"></i>
+                <div class="text-muted">{{ 'modules.admin.actionLog.common.noData' | translate }}</div>
+            </div>
+        </div>
+    </div>
+</div>

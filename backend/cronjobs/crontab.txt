@@ -1,0 +1,2 @@
+### Post to Facebook  ###
+*/1 * * * * cd /app/backend && node cronjobs/bigdata/ai-social-post-facebook.js

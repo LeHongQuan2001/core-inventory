@@ -1,0 +1,8 @@
+::ng-deep {
+    .alert-container {
+        position: absolute;
+        z-index: 10000;
+        top: 20px;
+        min-width: 350px;
+    }
+}

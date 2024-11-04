@@ -1,0 +1,16 @@
+::ng-deep {
+    .errors {
+        .content-inner {
+            height: 100vh;
+        }
+
+        app-root, app-layout-error {
+            height: 100% !important;
+            display: block;
+        }
+
+        .content {
+            height: calc(100vh - 62px - 59px);
+        }
+    }
+}

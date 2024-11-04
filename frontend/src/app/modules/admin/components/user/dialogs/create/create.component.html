@@ -1,0 +1,174 @@
+<div class="dialog-header pt-2 pb-2">
+    <h5 class="font-weight-bold m-0 ms-1"><i class="fa-solid fa-users mr-2"></i>
+        {{ 'modules.admin.user.common.createUser' | translate }}
+    </h5>
+    <span class="icon-close-dialog" mat-dialog-close>
+        <i class="ph ph-x"></i>
+    </span>
+</div>
+
+<div class="notify-create-user">
+    <div class="col-xl-12 p-2">
+        <div class="card-body px-0 pb-0">
+            <div class="col-xl-12">
+                <div class="">
+                    <form [formGroup]="userForm">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="form-group mb-2">
+                                    <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.email' | translate }}</strong></label>
+                                    <input [ngClass]="{ 'ng-invalid-custom': userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched) }" type="text" formControlName="email" class="form-control" />
+                                    <div *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched)"
+                                        class="validation-invalid-label mt-2">
+                                        <div *ngIf="userForm.get('email')?.errors?.['required']">
+                                            {{ 'modules.admin.user.validatedErrors.emailRequired' | translate }}
+                                        </div>
+                                        <div *ngIf="userForm.get('email')?.errors?.['pattern']">
+                                            {{ 'modules.admin.user.validatedErrors.emailInvalid' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group mb-2 col-xl-6">
+                                        <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.firstName' | translate }}</strong></label>
+                                        <input [ngClass]="{ 'ng-invalid-custom': userForm.get('firstName')?.invalid && (userForm.get('firstName')?.dirty || userForm.get('firstName')?.touched) }" type="text" formControlName="firstName" class="form-control" />
+                                        <div *ngIf="userForm.get('firstName')?.invalid && (userForm.get('firstName')?.dirty || userForm.get('firstName')?.touched)"
+                                            class="validation-invalid-label mt-2">
+                                            <div *ngIf="userForm.get('firstName')?.errors?.['required'] || userForm.get('firstName')?.errors?.['whitespace']">
+                                                {{ 'modules.admin.user.validatedErrors.firstNameRequired' | translate }}
+                                            </div>
+                                            <div *ngIf="userForm.get('firstName')?.errors?.['minlength']">
+                                                {{ 'modules.admin.user.validatedErrors.firstNameMinLength' | translate }}
+                                            </div>
+                                            <div *ngIf="userForm.get('firstName')?.errors?.['maxlength']">
+                                                {{ 'modules.admin.user.validatedErrors.firstNameMaxLength' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-2 col-xl-6">
+                                        <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.lastName' | translate }}</strong></label>
+                                        <input [ngClass]="{ 'ng-invalid-custom': userForm.get('lastName')?.invalid && (userForm.get('lastName')?.dirty || userForm.get('lastName')?.touched) }" type="text" formControlName="lastName" class="form-control" />
+                                        <div *ngIf="userForm.get('lastName')?.invalid && (userForm.get('lastName')?.dirty || userForm.get('lastName')?.touched)"
+                                            class="validation-invalid-label mt-2">
+                                            <div *ngIf="userForm.get('lastName')?.errors?.['required'] || userForm.get('lastName')?.errors?.['whitespace']">
+                                                {{ 'modules.admin.user.validatedErrors.lastNameRequired' | translate }}
+                                            </div>
+                                            <div *ngIf="userForm.get('lastName')?.errors?.['minlength']">
+                                                {{ 'modules.admin.user.validatedErrors.lastNameMinLength' | translate }}
+                                            </div>
+                                            <div *ngIf="userForm.get('lastName')?.errors?.['maxlength']">
+                                                {{ 'modules.admin.user.validatedErrors.lastNameMaxLength' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.phone' | translate }}</strong></label>
+                                    <input autocomplete="off" [ngClass]="{ 'ng-invalid-custom': userForm.get('phone')?.errors?.['pattern']}" type="text" formControlName="phone" class="form-control" (input)="changePhone($event)"/>
+                                    <div *ngIf="userForm.get('phone')?.invalid"
+                                        class="validation-invalid-label mt-1">
+                                        <div *ngIf="userForm.get('phone')?.errors?.['pattern']">
+                                            {{ 'modules.admin.user.validatedErrors.phoneInvalid' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row"> 
+                                    <div class="form-group mb-2 position-relative col-xl-9 col-md-9 style-input-password">
+                                        <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.password' | translate }}</strong></label>
+                                        <input autocomplete="new-password" formControlName="password"
+                                               [ngClass]="{ 'ng-invalid-custom': userForm.get('password')?.invalid && (userForm.get('password')?.dirty || userForm.get('password')?.touched) }"
+                                               class="form-control input-password" 
+                                               type="{{ isShowPassword ? 'text' : 'password' }}"
+                                               />
+                                        <i [ngClass]="{'ph-eye': !isShowPassword, 'ph-eye-slash': isShowPassword}" class="ph cursor-pointer icon-suffix r-20" (click)="isShowPassword = !isShowPassword"></i>
+                                        <div *ngIf="userForm.get('password')?.invalid && (userForm.get('password')?.dirty || userForm.get('password')?.touched)"
+                                             class="validation-invalid-label mt-1">
+                                            <div *ngIf="userForm.get('password')?.errors?.['required']">
+                                                {{ 'modules.admin.user.validatedErrors.passwordRequired' | translate }}
+                                            </div>
+                                            <div *ngIf="userForm.get('password')?.errors?.['pattern']">
+                                                {{ 'modules.admin.user.validatedErrors.newPassword.pattern' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-md-3 style-button-password">
+                                        <button class="btn btn-primary w-100 mt-4" (click)="generatePassword()">{{ 'modules.admin.user.common.generatePassword' | translate }}</button>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-2 position-relative">
+                                    <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.confirmPassword' | translate }}</strong></label>
+                                    <input formControlName="confirmPassword"
+                                        type="{{ isShowPassword ? 'text' : 'password' }}"
+                                        [ngClass]="{ 'ng-invalid-custom': userForm.get('confirmPassword')?.invalid && (userForm.get('confirmPassword')?.dirty || userForm.get('confirmPassword')?.touched) }"
+                                        class="form-control input-password" />
+                                    <i
+                                        [ngClass]="{'ph-eye': !isShowPassword, 'ph-eye-slash': isShowPassword}"
+                                        class="ph cursor-pointer icon-suffix"
+                                        (click)="isShowPassword = !isShowPassword">
+                                    </i>
+                                    <div *ngIf="userForm.get('confirmPassword')?.invalid && (userForm.get('confirmPassword')?.dirty || userForm.get('confirmPassword')?.touched)"
+                                         class="validation-invalid-label mt-1">
+                                        <div *ngIf="userForm.get('confirmPassword')?.errors?.['required']">
+                                            {{ 'modules.admin.user.validatedErrors.passwordRequired' | translate }}
+                                        </div>
+                                        <div *ngIf="userForm.get('confirmPassword')?.errors?.['minlength']">
+                                            {{ 'modules.admin.user.validatedErrors.passwordMinLength' | translate }}
+                                        </div>
+                                        <div *ngIf="userForm.get('confirmPassword')?.errors?.['MatchPassword']">
+                                            {{ 'modules.admin.user.validatedErrors.passwordMatch' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group mb-2">
+                                    <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.role' | translate }}</strong></label>
+                                    <select [ngClass]="{ 'ng-invalid-custom': userForm.get('role')?.invalid && (userForm.get('role')?.dirty || userForm.get('role')?.touched) }" name=""  class="form-control select select-fixed-single user-update-role"
+                                            *ngIf="roles">
+                                        <option [value]="role.id" *ngFor="let role of roles">
+                                            {{ role.name }}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="userForm.get('role')?.invalid && (userForm.get('role')?.dirty || userForm.get('role')?.touched)"
+                                        class="validation-invalid-label mt-2">
+                                        <div *ngIf="userForm.get('role')?.errors?.['required']">
+                                            {{ 'modules.user.validatedErrors.roleRequired' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.status' | translate   }}</strong></label>
+                                    <div>
+                                        <select name="status"
+                                                class="form-control select select-fixed-single user-update-statuses">
+                                            <option *ngFor="let status of statuses; let i=index;" [value]="status" [selected]="status === 1">{{ 'modules.admin.user.common.status'
+                                            + status | translate }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-2" [ngClass]="{ 'ng-invalid-custom': !domainIsValid}">
+                                    <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.apps' | translate }}</strong></label>
+                                    <select class="form-control select select2-hidden-accessible notify-group-select-apps" multiple>
+                                    </select>
+                                    <div *ngIf="!domainIsValid"
+                                        class="validation-invalid-label mt-2">
+                                        <div *ngIf="userForm.get('domains')?.errors?.['required']">
+                                            {{ 'modules.admin.user.validatedErrors.domainsRequired' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dialog-footer pt-2 pb-2">
+    <button class="btn btn-danger me-2" mat-dialog-close>{{ 'common.button.cancel' | translate }} <i class="ph-x ms-1"></i></button>
+    <button class="btn btn-primary" [disabled]="userForm.invalid" (click)="saveUserInfo()">{{ 'common.button.save' | translate }} <i class="ph-floppy-disk ms-1"></i></button>
+</div>

@@ -1,0 +1,54 @@
+<div class="col-xl-12 pt-2 pb-2 dialog-header">
+    <h5 class="font-weight-bold m-0 ms-1"><i class="ph ph-user me-1"></i>
+        {{ 'modules.user.common.profile' | translate }}
+    </h5>
+    <span class="icon-close-dialog" mat-dialog-close>
+        <i class="ph ph-x"></i>
+    </span>
+</div>
+<div class="p-2 pt-3 pb-3">
+    <form [formGroup]="form" enctype='multipart/form-data'>
+        <div class="card box-avatar mb-1">
+            <div class="text-center pb-0 position-relative">
+                <img [src]="imageSrc" alt="avatar" class="rounded-pill border " height="180" width="180">
+                <!-- button update avatar -->
+<!--                <div class="rounded-circle  icon-choose-avatar" title="choose image">-->
+<!--                    <div class="button_upload">-->
+<!--                        <input id="file" name="avatar" type='file' accept="image/*" (change)="readURL($event);" />-->
+<!--                        <span>-->
+<!--                            <label for="file">-->
+<!--                                <i class="ph ph-instagram-logo"></i>-->
+<!--                            </label>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <!--end  update avatar -->
+                <p class="text-muted mt-2 mb-1">{{ userInfo.email }}</p>
+                <span class="badge bg-success fw-normal mb-1 mt-1 me-2" *ngIf="userInfo.roleName">
+                    {{ userInfo.roleName }}
+                </span>
+            </div>
+        </div>
+            <div class="mb-2">
+                <label class="form-label"><strong>{{ 'modules.user.common.userId' | translate }}</strong></label>
+                <div class="form-control-feedback">
+                    <input type="text" formControlName="id" class="form-control">
+                </div>
+            </div>
+            <div class="mb-2">
+                <label class="form-label"><strong>{{ 'modules.user.common.username' | translate }}</strong></label>
+                <div class="form-control-feedback">
+                    <input type="text" formControlName="username" class="form-control">
+                </div>
+            </div>
+            <div>
+                <label class="form-label"><strong>{{ 'modules.user.common.email' | translate }}</strong></label>
+                <div class="form-control-feedback">
+                    <input type="text" formControlName="email" class="form-control">
+                </div>
+            </div>
+    </form>
+</div>
+<div class="col-xl-12 pt-2 pb-2 dialog-footer">
+    <button class="btn btn-danger" mat-dialog-close>{{ 'common.button.cancel' | translate }} <i class="ph-x ms-1"></i></button>
+</div>

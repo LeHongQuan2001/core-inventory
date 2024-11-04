@@ -1,0 +1,50 @@
+<div class="my-2 me-2 clearfix app-paginator">
+    <div class="show-limit">
+        <label class="me-2 mt-2">{{ 'common.paginator.itemsPerPageLabel' | translate }}</label>
+        <select class="form-control paginator-select-page-size"></select>
+    </div>
+    <div class="ms-2 total-paginator" *ngIf="length">
+        <label class="mt-2">{{ (pageIndex - 1) * pageSize + 1 | number }} - {{ (pageSize * (pageIndex)) > length ? length : pageSize * (pageIndex) | number }} {{ 'common.paginator.ofLabel' | translate }} {{ length | number }}</label>
+    </div>
+    <div class="float-start ms-2 d-lg-block number-paginator">
+        <ul class="pagination align-self-end">
+            <li class="page-item"
+                [ngClass]="length && pageIndex === firstPageIndex ? 'disabled' : ''">
+                <a (click)="onClickFirst()"
+                   matTooltip="{{ 'common.paginator.firstPage' | translate }}"
+                   class="page-link cursor-pointer"><i class="ph-arrow-line-left"></i></a>
+            </li>
+            <li class="page-item" [ngClass]="length && pageIndex === firstPageIndex ? 'disabled' : ''">
+                <a (click)="onClickPrev()"
+                   matTooltip="{{ 'common.paginator.previousPage' | translate }}"
+                   class="page-link cursor-pointer"><i class="ph-arrow-left"></i></a>
+            </li>
+            <li class="page-item" *ngIf="length && !isFirstGroupPage() && isMobile === false"><span class="page-link"><i class="ph-dots-three"></i></span></li>
+            <ng-container *ngFor="let page of groupPage">
+                <li class="page-item">
+                    <a (click)="onClickPage(page)"
+                       matTooltip="{{ 'common.paginator.pageNumber' | translate: { pageIndex: page } }}"class="page-link cursor-pointer" [ngClass]="pageIndex === page ? 'active' : ''">{{ page }}</a>
+                </li>
+            </ng-container>
+            <li class="page-item" *ngIf="length && !isLastGroupPage() && isMobile === false"><span class="page-link"><i class="ph-dots-three"></i></span></li>
+            <li class="page-item"
+                [ngClass]="length && pageIndex === totalPage ? 'disabled' : ''">
+                <a (click)="onClickNext()"
+                   matTooltip="{{ 'common.paginator.nextPage' | translate }}"
+                   class="page-link cursor-pointer"><i class="ph-arrow-right"></i></a>
+            </li>
+            <li class="page-item"
+                [ngClass]="length && pageIndex === totalPage ? 'disabled' : ''">
+                <a (click)="onClickLast()"
+                   matTooltip="{{ 'common.paginator.lastPage' | translate }}"
+                   class="page-link cursor-pointer"><i class="ph-arrow-line-right"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="float-start ms-2 d-lg-block d-none" *ngIf="totalPage > 1">
+        <input type="text" [disabled]="totalPage == 1" class="form-control text-center" (keypress)="onKeyPress($event)" value="{{ pageIndex }}" size="3" />
+    </div>
+    <div class="float-start ms-1 d-lg-block d-none" *ngIf="totalPage > 1">
+        <label class="mt-2">{{ 'common.paginator.perPages' | translate }} {{ totalPage | number }}</label>
+    </div>
+</div>

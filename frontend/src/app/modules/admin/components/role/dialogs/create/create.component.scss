@@ -1,0 +1,11 @@
+::ng-deep .admin-dialog-role-create {
+  input, textarea {
+    &.ng-invalid {
+      border-color: #d1d5db !important;
+    }
+
+    &.ng-invalid-custom {
+      border-color: #EF4444 !important;
+    }
+  }
+}

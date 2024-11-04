@@ -1,0 +1,24 @@
+::ng-deep {
+    .wp-administrator-route {
+        .route-item, .route-name {
+            border-bottom: 1px dashed rgb(37, 43, 54);
+            cursor: pointer;
+        }
+
+        .search-route {
+            width: 350px;
+        }
+
+        @media (max-width: 1000px) {
+            .mat-column-name {
+                width: 500px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .search-route {
+                width: 100%;
+            }
+        }
+    }
+}

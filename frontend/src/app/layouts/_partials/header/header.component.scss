@@ -1,0 +1,36 @@
+::ng-deep {
+    #header {
+        img {
+            object-fit: fill;
+        }
+
+        .dropdown-menu-scrollable-lg {
+            .search-content-element {
+                max-height: 200px;
+                overflow: auto;
+            }
+        }
+
+        .limit-text-2l {
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            display: block !important;
+            display: -webkit-box !important;
+            overflow: hidden;
+            white-space: normal;
+        }
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    .list-apps.dropdown-menu[data-bs-popper] {
+        left: -32% !important;
+    }
+
+    .app-name {
+        max-width: 145px;
+        overflow: hidden;
+        min-height: 15px;
+    }
+}

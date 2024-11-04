@@ -1,0 +1,74 @@
+<div class="otp-dialog">
+    <div class="otp-dialog-header bg-black text-white p-2">
+        <span class="mb-0 font-weight-light">
+            <strong class="font-weight-bold">{{ title }}</strong>
+        </span>
+    </div>
+    <mat-dialog-content class="p-2 mt-2">
+        <form [formGroup]="formOTP" >
+            <p>{{ message }}</p>
+            <div class="form-security-code">
+                <label class="fw-bold">{{ 'common.confirmCode' | translate }}</label>
+                <div class="form-security-code-inputs">
+                    <input class="form-security-code-input" type="text" maxlength="1"
+                           tabindex="1"
+                           autofocus
+                           id="digitOne"
+                           formControlName="digitOne"
+                           [onlyNumber]="true"
+                           #digitOne
+                           (keyup)="onDigitInput($event)"
+                           (change)="onDigitChange($event)"
+                           (paste)="onDigitPaste($event)" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Nhập Mã Xác Minh Chữ số 1"
+                           [ngClass]="{ 'ng-invalid-custom': formOTP.get('digitOne')?.invalid && (formOTP.get('digitOne')?.dirty || formOTP.get('digitOne')?.touched) }"/>
+                    <input class="form-security-code-input"
+                           tabindex="2"
+                           formControlName="digitTwo"
+                           #digitTwo
+                           (keyup)="onDigitInput($event)"
+                           (change)="onDigitChange($event)"
+                           (paste)="onDigitPaste($event)" type="text" maxlength="1" [onlyNumber]="true" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Nhập Mã Xác Minh Chữ số 2" value=""
+                           [ngClass]="{ 'ng-invalid-custom': formOTP.get('digitTwo')?.invalid && (formOTP.get('digitTwo')?.dirty || formOTP.get('digitTwo')?.touched) }"/>
+                    <input class="form-security-code-input"
+                           tabindex="3"
+                           formControlName="digitThree"
+                           #digitThree
+                           (keyup)="onDigitInput($event)"
+                           (change)="onDigitChange($event)"
+                           (paste)="onDigitPaste($event)" type="text" maxlength="1" [onlyNumber]="true" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Nhập Mã Xác Minh Chữ số 3" value=""
+                           [ngClass]="{ 'ng-invalid-custom': formOTP.get('digitThree')?.invalid && (formOTP.get('digitThree')?.dirty || formOTP.get('digitThree')?.touched) }"/>
+                    <input class="form-security-code-input"
+                           tabindex="4"
+                           formControlName="digitFour"
+                           #digitFour
+                           (keyup)="onDigitInput($event)"
+                           (change)="onDigitChange($event)"
+                           (paste)="onDigitPaste($event)" type="text" maxlength="1" [onlyNumber]="true" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Nhập Mã Xác Minh Chữ số 4" value=""
+                           [ngClass]="{ 'ng-invalid-custom': formOTP.get('digitFour')?.invalid && (formOTP.get('digitFour')?.dirty || formOTP.get('digitFour')?.touched) }"/>
+                    <input class="form-security-code-input"
+                           tabindex="5"
+                           formControlName="digitFive"
+                           #digitFive
+                           (keyup)="onDigitInput($event)"
+                           (change)="onDigitChange($event)"
+                           (paste)="onDigitPaste($event)" type="text" maxlength="1" [onlyNumber]="true" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Nhập Mã Xác Minh Chữ số 5" value=""
+                           [ngClass]="{ 'ng-invalid-custom': formOTP.get('digitFive')?.invalid && (formOTP.get('digitFive')?.dirty || formOTP.get('digitFive')?.touched) }"/>
+                    <input class="form-security-code-input"
+                           tabindex="6"
+                           formControlName="digitSix"
+                           #digitSix
+                           (keyup)="onDigitInput($event)"
+                           (change)="onDigitChange($event)"
+                           (paste)="onDigitPaste($event)" type="text" maxlength="1" [onlyNumber]="true" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Nhập Mã Xác Minh Chữ số 6" value=""
+                           [ngClass]="{ 'ng-invalid-custom': formOTP.get('digitSix')?.invalid && (formOTP.get('digitSix')?.dirty || formOTP.get('digitSix')?.touched) }"/>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" class="otp-dialog-footer p-2">
+        <button class="btn btn-light text-capitalize me-2" [autofocus]="false" mat-dialog-close>{{ 'common.button.close' | translate }}<i class="ph-x ms-1"></i></button>
+        <button class="btn btn-primary text-capitalize"
+                [disabled]="formOTP.invalid"
+                (click)="onSubmit()">{{ 'common.button.confirm' | translate }}<i class="ph-check ms-1"></i></button>
+    </mat-dialog-actions>
+</div>

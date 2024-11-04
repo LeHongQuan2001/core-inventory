@@ -1,0 +1,224 @@
+<!-- Main sidebar -->
+<div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg sidebar-main-resized">
+    <div class="sidebar-overlay bg-opacity-30"></div>
+    <!-- Sidebar header -->
+    <div id="wp-sidebar-main"
+         class="sidebar-section bg-black bg-opacity-10 border-bottom border-bottom-white border-opacity-10">
+        <div class="sidebar-logo d-flex justify-content-center align-items-center">
+            <a [routerLink]="['/']" class="d-inline-flex align-items-center">
+                <img [src]="logoDfUrlMini" class="sidebar-logo-icon" alt="logo"/>
+                <img [src]="logoDef" class="sidebar-resize-hide" alt="logo"/>
+            </a>
+            <div class="sidebar-resize-hide ms-auto d-lg-none">
+                <button type="button"
+                        class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
+                    <i class="ph-arrows-left-right"></i>
+                </button>
+                <button type="button"
+                        class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-mobile-main-toggle d-lg-none">
+                    <i class="ph-x"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- /sidebar header -->
+    <!-- Sidebar content -->
+    <div class="sidebar-content">
+        <!-- Main navigation -->
+        <div class="sidebar-section">
+            <ul class="nav nav-sidebar" data-nav-type="accordion">
+                <li class="nav-item">
+                    <a [routerLink]="['/', 'home']"
+                       [routerLinkActive]="'active'"
+                       class="nav-link popover-item"
+                       data-bs-toggle="popover"
+                       data-bs-placement="right"
+                       data-bs-trigger="hover"
+                       [attr.data-bs-content]="'sideBar.home' | translate">
+                        <i class="ph-house"></i>
+                        <span>{{ 'sideBar.home' | translate }}</span>
+                    </a>
+                </li>
+                <!-- Main -->
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Main</div>
+                    <i class="ph-dots-three sidebar-resize-show"></i>
+                </li>
+                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('cdp/source/list')">
+                    <a [routerLink]="['/', 'source', 'list']"
+                       [routerLinkActive]="'active'"
+                       class="nav-link popover-item"
+                       data-bs-toggle="popover"
+                       data-bs-placement="right"
+                       data-bs-trigger="hover"
+                       [attr.data-bs-content]="'sideBar.inventory.report.name' | translate">
+                        <i class="ph ph-chart-line"></i><span>{{ 'sideBar.inventory.report.name' | translate }}</span></a>
+                </li>
+                <li class="nav-item nav-item-submenu">
+                    <a href="javascript: void(0);" class="nav-link">
+                        <i class="ph ph-calendar-check"></i>
+                        <span>{{ 'sideBar.inventory.booking.name' | translate }}</span>
+                    </a>
+                    <ul class="nav-group-sub collapse" [attr.data-submenu-title]="'sideBar.inventory.booking.name' | translate">
+                        <li class="nav-item">
+                            <a [routerLink]="['/', 'booking', 'calendar', 'location', 'overview']"
+                               [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                <i class="ph ph-map-pin-line"></i>
+                                {{ 'sideBar.inventory.booking.calendarLocation' | translate }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a [routerLink]="['/', 'booking', 'calendar', 'zone', 'overview']"
+                               [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                <i class="ph ph-newspaper-clipping"></i>
+                                {{ 'sideBar.inventory.booking.calendarZone' | translate }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a [routerLink]="['/', 'booking', 'my-booking']"
+                               [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                <i class="ph ph-user"></i>
+                                {{ 'sideBar.inventory.booking.myBooking' | translate }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('cdp/segment/list')">
+                    <a [routerLink]="['/', 'segment', 'list']"
+                       [routerLinkActive]="'active'"
+                       class="nav-link popover-item"
+                       data-bs-toggle="popover"
+                       data-bs-placement="right"
+                       data-bs-trigger="hover"
+                       [attr.data-bs-content]="'sideBar.inventory.bookingPr.name' | translate">
+                        <i class="ph ph-calendar-blank"></i>
+                        <span>{{ 'sideBar.inventory.bookingPr.name' | translate }}</span></a>
+                </li>
+                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('cdp/activation/list')">
+                    <a [routerLink]="['/', 'activation', 'list']"
+                       [routerLinkActive]="'active'"
+                       class="nav-link popover-item"
+                       data-bs-toggle="popover"
+                       data-bs-placement="right"
+                       data-bs-trigger="hover"
+                       [attr.data-bs-content]="'sideBar.inventory.estimate.name' | translate">
+                        <i class="ph ph-notepad"></i>
+                        <span>{{ 'sideBar.inventory.estimate.name' | translate }}</span></a>
+                </li>
+                <li class="nav-item nav-item-submenu">
+                <li class="nav-item-divider" *ngIf="currentUser && (currentUser.isAdmin() || ruleCheckerService.isAllow('admin/dmp/user/search'))"></li>
+                <li class="nav-item-header" *ngIf="currentUser && (currentUser.isAdmin() || ruleCheckerService.isAllow('admin/dmp/user/search'))">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Admin</div>
+                    <i class="ph-dots-three sidebar-resize-show"></i>
+                </li>
+
+                <li *ngIf="currentUser && (currentUser.isAdmin() || ruleCheckerService.isAllow('admin/dmp/user/search'))" class="nav-item nav-item-submenu">
+                    <a href="javascript: void(0);" class="nav-link">
+                        <i class="ph-gear"></i>
+                        <span>{{ 'sideBar.admin' | translate }}</span>
+                    </a>
+                    <ul class="nav-group-sub collapse" [attr.data-submenu-title]="'sideBar.admin' | translate">
+                        <li class="nav-item nav-item-submenu">
+                            <a href="javascript: void(0);" class="nav-link"><i class="ph-shield-check"></i>{{ 'sideBar.adminTool' | translate }}</a>
+                            <ul class="nav-group-sub collapse">
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/user/list')">
+                                    <a [routerLink]="['/', 'admin', 'user', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph-users"></i>
+                                        {{ 'sideBar.users' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/booking/list')">
+                                    <a [routerLink]="['/', 'admin', 'booking', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-notepad"></i>
+                                        {{ 'sideBar.inventory.admin.booking' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/website/list')">
+                                    <a [routerLink]="['/', 'admin', 'website', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-globe"></i>
+                                        {{ 'sideBar.inventory.admin.websiteBk' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/channel/list')">
+                                    <a [routerLink]="['/', 'admin', 'channel', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-article"></i>
+                                        {{ 'sideBar.inventory.admin.channelBk' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item3" *ngIf="ruleCheckerService.isAllow('admin/banner/list')">
+                                    <a [routerLink]="['/', 'admin', 'banner', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-map-trifold"></i>
+                                        {{ 'sideBar.inventory.admin.bannerBk' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/location/list')">
+                                    <a [routerLink]="['/', 'admin', 'location', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-map-pin-line"></i>
+                                        {{ 'sideBar.inventory.admin.locationBk' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/zone/list')">
+                                    <a [routerLink]="['/', 'admin', 'zone', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-newspaper-clipping"></i>
+                                        {{ 'sideBar.inventory.admin.zoneBk' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/bundle/list')">
+                                    <a [routerLink]="['/', 'admin', 'bundle', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-image-square"></i>
+                                        {{ 'sideBar.inventory.admin.bundleBk' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="ruleCheckerService.isAllow('admin/website-group/list')">
+                                    <a [routerLink]="['/', 'admin', 'website-group', 'list']"
+                                       [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: false }" class="nav-link">
+                                        <i class="ph ph-globe-hemisphere-west"></i>
+                                        {{ 'sideBar.inventory.admin.websiteGroup' | translate }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item" *ngIf="currentUser.isSuperAdmin()">
+                            <a [routerLink]="['/', environment.administratorPrefix, 'role', 'search']"
+                               [routerLinkActive]="'active'"
+                               class="nav-link"><i class="ph-users-four"></i>{{ 'sideBar.roles' | translate }}</a>
+                        </li>
+                        <li class="nav-item" *ngIf="currentUser.isSuperAdmin()">
+                            <a [routerLink]="['/', environment.administratorPrefix, 'user', 'search']"
+                               [routerLinkActive]="'active'"
+                               class="nav-link"><i class="ph-users"></i>{{ 'sideBar.users' | translate }}</a>
+                        </li>
+                        <li class="nav-item" *ngIf="currentUser.isSuperAdmin()">
+                            <a [routerLink]="['/', environment.administratorPrefix, 'route', 'search']"
+                               [routerLinkActive]="'active'"
+                               class="nav-link"><i class="ph-path"></i>{{ 'sideBar.routes' | translate }}</a>
+                        </li>
+                        <li class="nav-item" *ngIf="currentUser.isSuperAdmin()">
+                            <a [routerLink]="['/', environment.administratorPrefix, 'action-log', 'search']"
+                               [routerLinkActive]="'active'"
+                               class="nav-link"><i class="ph ph-notebook"></i>{{ 'sideBar.logAction' | translate }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item-divider"></li>
+                <li class="nav-item">
+                    <a class="nav-link sidebar-main-resize">
+                        <i class="ph-arrows-left-right"></i><span>{{ 'sideBar.showHideSidebar' | translate }}</span>
+                    </a>
+                </li>
+                <li class="nav-item-divider d-none"></li>
+            </ul>
+        </div>
+        <!-- /main navigation -->
+    </div>
+    <!-- /sidebar content -->
+</div>
+<!-- /main sidebar -->

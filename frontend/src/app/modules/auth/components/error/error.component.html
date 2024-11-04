@@ -1,0 +1,31 @@
+<!-- Content area -->
+<div class="content d-flex justify-content-center align-items-center">
+
+    <div class="card mb-0" [style.max-width.px]="400">
+        <div class="card-body">
+            <div class="float-end clearfix">
+                <a href="javascript: void(0);" class="cursor-pointer dropdown-toggle text-dark" data-bs-toggle="dropdown">
+                    <img alt="" src="./assets/styles/default/images/lang/{{ language }}.png" height="19" />
+                </a>
+                <div class="dropdown-menu">
+                    <a *ngFor="let lang of languages; let i = index"
+                       (click)="changeLang(lang)" class="dropdown-item cursor-pointer">
+                        <img alt="" src="./assets/styles/default/images/lang/{{ lang }}.png" height="19" /> <span class="ms-1">{{ 'common.languages.' + lang | translate }}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-4 mt-2">
+                    <img src="./assets/styles/default/images/logo.png" class="h-48px" alt="">
+                </div>
+                <span class="d-block text-start" [innerHTML]="'modules.auth.login.loginError' | translate"></span>
+            </div>
+
+            <div class="mb-0">
+                <a [routerLink]="['/', 'auth', 'login']" class="btn btn-primary w-100">{{ 'modules.auth.common.buttons.backToLogin' | translate }}</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /content area -->

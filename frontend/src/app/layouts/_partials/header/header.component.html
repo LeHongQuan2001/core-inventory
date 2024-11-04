@@ -1,0 +1,91 @@
+<!-- Main navbar -->
+<div id="header" class="navbar navbar-expand-lg navbar-static shadow" *ngIf="currentUser">
+    <div class="container-fluid">
+        <div class="d-flex d-lg-none me-2">
+            <button type="button" class="navbar-toggler sidebar-mobile-main-toggle rounded-pill">
+                <i class="ph-list"></i>
+            </button>
+        </div>
+
+        <div class="navbar-collapse flex-lg-1 order-2 order-lg-1 collapse" id="navbar_search">
+            <div class="navbar-search flex-fill dropdown mt-2 mt-lg-0">
+                <div class="form-control-feedback form-control-feedback-start flex-grow-1">
+                    <input type="text" class="form-control"
+                           [(ngModel)]="keyword"
+                           (ngModelChange)="searchData.next($event)"
+                           placeholder="{{ 'common.search.placeHolder' | translate }}" data-bs-toggle="dropdown">
+                    <div class="form-control-feedback-icon">
+                        <i class="ph-magnifying-glass"></i>
+                    </div>
+                    <div *ngIf="ruleCheckerService.isAllow('dmp/search/all')" class="dropdown-menu w-100">
+                        <div class="dropdown-item">
+                            <div class="text-center w-32px me-3">
+                                <i class="ph-magnifying-glass"></i>
+                            </div>
+                            <span *ngIf="keyword == ''">{{ 'common.search.placeHolder' | translate }}</span>
+                            <span *ngIf="keyword" [innerHTML]="'modules.cdp.audience.searchAudienceWithKeyword' | translate: { keyword: keyword}">Search <span class="fw-bold">"{{ keyword }}"</span> {{ 'modules.dmp.audience.title' | translate }}</span>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <ul class="nav hstack gap-sm-1 flex-row justify-content-end order-1 order-lg-2"
+            *ngIf="currentUser">
+            <li class="nav-item nav-item-dropdown-lg dropdown">
+                <a href="javascript: void(0);" class="navbar-nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <img loading="lazy" alt="" src="./assets/styles/default/images/lang/{{ language }}.png" height="19"/>
+                </a>
+                <div class="dropdown-menu">
+                    <a *ngFor="let lang of languages; let i = index"
+                       (click)="changeLang(lang)" class="dropdown-item cursor-pointer">
+                        <img loading="lazy" alt="" src="./assets/styles/default/images/lang/{{ lang }}.png" height="19"/> <span
+                            class="ms-1">{{ 'common.languages.' + lang | translate }}</span>
+                    </a>
+                </div>
+            </li>
+
+
+            <li class="nav-item nav-item-dropdown-lg dropdown">
+                <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
+                    <div class="status-indicator-container">
+                        <img loading="lazy" [src]="imageSrc" class="w-32px h-32px rounded-pill border" alt=""/>
+                        <span class="status-indicator bg-success"></span>
+                    </div>
+                    <span class="d-none d-lg-inline-block mx-lg-2 text-truncate w-100">{{ currentUser.username }}</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item cursor-pointer" (click)="openProfile()">
+                        <i class="ph-user-circle me-2"></i>
+                        {{ 'modules.user.common.profile' | translate }}
+                    </a>
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item cursor-pointer" (click)="openChangePassword()">-->
+<!--                        <i class="ph-lock me-2"></i>-->
+<!--                        {{ 'modules.user.common.changePassword' | translate }}-->
+<!--                    </a>-->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item cursor-pointer" (click)="openLinkGuideDoc()">
+                        <i class="ph-file-text me-2"></i>
+                        {{ 'modules.user.common.guideDoc' | translate }}
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item cursor-pointer text-white bg-danger" *ngIf="originalUser"
+                       (click)="switchOriginalUser()">
+                        <i class="ph-arrows-left-right me-2"></i>
+                        {{ 'modules.auth.common.buttons.backToUserOriginal' | translate }}
+                    </a>
+                    <a (click)="logout()" class="dropdown-item cursor-pointer">
+                        <i class="ph-sign-out me-2"></i>
+                        {{ 'modules.auth.common.buttons.logout' | translate }}
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<!-- Content area -->
+<div class="content d-flex justify-content-center align-items-center">
+    <!-- Login form -->
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="card mb-0">
+            <div class="card-body">
+                <div class="float-end clearfix">
+                    <a href="javascript: void(0);" class="cursor-pointer dropdown-toggle text-dark"
+                       data-bs-toggle="dropdown">
+                        <img alt="" src="./assets/styles/default/images/lang/{{ language }}.png" height="19"/>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a *ngFor="let lang of languages; let i = index"
+                           (click)="changeLang(lang)" class="dropdown-item cursor-pointer">
+                            <img alt="" src="./assets/styles/default/images/lang/{{ lang }}.png" height="19"/> <span
+                                class="ms-1">{{ 'common.languages.' + lang | translate }}</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center mb-3">
+                    <div class="d-inline-flex align-items-center justify-content-center mb-4 mt-2">
+                        <img src="./assets/styles/default/images/logo.png" class="h-48px" alt="">
+                    </div>
+                    <h5 class="mb-0">{{ 'modules.auth.login.loginToAccount' | translate }}</h5>
+                    <span class="d-block text-muted">{{ 'modules.auth.login.enterCredential' | translate }}</span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">{{ 'modules.auth.common.username' | translate }}</label>
+                    <div class="form-control-feedback form-control-feedback-start">
+                        <input type="text" formControlName="username" class="form-control"
+                               placeholder="{{ 'modules.auth.login.userNamePlaceHolder' | translate }}"/>
+                        <div class="form-control-feedback-icon">
+                            <i class="ph-envelope text-muted"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">{{ 'modules.auth.common.password' | translate }}</label>
+                    <div class="form-control-feedback form-control-feedback-start">
+                        <input type="{{isShowPassword ? 'text' : 'password'}}" formControlName="password" class="form-control input-password"
+                               placeholder="{{ 'modules.auth.login.passwordPlaceHolder' | translate }}"/>
+                        <i class="ph cursor-pointer icon-suffix"
+                            [ngClass]="{'ph-eye': !isShowPassword, 'ph-eye-slash': isShowPassword}"
+                           (click)="isShowPassword = !isShowPassword"></i>
+                        <div class="form-control-feedback-icon">
+                            <i class="ph-lock text-muted"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <label class="form-check">
+                        <input type="checkbox" name="remember" class="form-check-input" checked/>
+                        <span class="form-check-label">{{ 'modules.auth.common.remember' | translate }}</span>
+                    </label>
+
+                    <a href="{{pathForgotPassword}}" target="_blank" rel="noopener"
+                       class="ms-auto">{{ 'modules.auth.common.forgotPassword' | translate }}</a>
+                </div>
+                <div class="mb-3">
+                    <button [disabled]="checkFormValid()" type="submit"
+                            class="btn btn-primary w-100">{{ 'modules.auth.common.buttons.signIn' | translate }}
+                    </button>
+                </div>
+                <div class="text-center text-muted content-divider mb-3">
+                    <span class="px-2">{{ 'modules.auth.common.dontHaveAccount' | translate }}</span>
+                </div>
+                <div class="mb-3 text-center">
+                    <a href="{{pathSignup}}" class="btn btn-warning w-100">{{ 'modules.auth.common.buttons.signUp' | translate }}
+                    </a>
+                </div>
+
+                <!-- TODO -->
+                <!-- <div class="text-center text-muted content-divider mb-3">
+                    <span class="px-2">{{ 'modules.auth.common.dontHaveAccount' | translate }}</span>
+                </div>
+                <div class="mb-3">
+                    <a href="{{pathSignup}}" target=”_blank”
+                       class="btn btn-light w-100">{{ 'modules.auth.common.buttons.signUp' | translate }}</a>
+                </div> -->
+
+                <span class="form-text text-center text-muted">{{ 'modules.auth.common.termCondition' | translate }}</span>
+            </div>
+        </div>
+    </form>
+    <!-- /login form -->
+</div>
+<!-- /content area -->

@@ -1,0 +1,16 @@
+::ng-deep {
+  .authenticate {
+    .content-inner {
+      height: 100vh;
+    }
+
+    app-root, app-layout-error {
+      height: 100% !important;
+      display: block;
+    }
+
+    .content {
+      height: 100vh;
+    }
+  }
+}

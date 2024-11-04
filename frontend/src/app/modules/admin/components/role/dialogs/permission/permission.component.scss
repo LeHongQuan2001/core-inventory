@@ -1,0 +1,10 @@
+::ng-deep {
+    .admin-dialog-role-permission {
+        @media screen and (max-width: 480px) {
+            .select2-container {
+                width: 100% !important;
+            }
+        }
+    }
+}
+

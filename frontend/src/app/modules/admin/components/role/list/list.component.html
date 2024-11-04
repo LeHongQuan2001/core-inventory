@@ -1,0 +1,106 @@
+<div class="wp-administrator-role">
+    <div class="page-header">
+        <div class="page-header-content d-lg-flex flex-lg-wrap border-bottom">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a [routerLink]="['/']" class="breadcrumb-item py-2"><i class="ph-house me-2"></i> {{ 'breadcrumbs.home' | translate }}</a>
+                    <span class="breadcrumb-item active py-2">{{ 'breadcrumbs.admin' | translate }}</span>
+                    <span class="breadcrumb-item active py-2">{{ 'modules.admin.role.breadcrumbs.name' | translate }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header-content d-lg-flex flex-lg-wrap">
+            <div class="page-title pt-2 pb-0">
+                <h5 class="mb-0">
+                    {{ 'modules.admin.role.breadcrumbs.name' | translate }} - <span class="fw-normal">{{ 'modules.admin.role.breadcrumbs.search' | translate }}</span>
+                </h5>
+                <div class="text-muted">{{ 'modules.admin.role.breadcrumbs.searchDescription' | translate }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="content" [ngClass]="{'page-use-pagination' : activePagination}">
+        <div class="card mb-0">
+            <div class="card-header p-2 pb-0">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group mb-2 float-start search-role me-2">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="ph-funnel"></i></span>
+                                <input type="text" [(ngModel)]="keyword" (keydown.enter)="getData()" class="form-control"
+                                       placeholder="{{ 'common.placeholder' | translate }}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2 float-start form-select-2-all-status me-2">
+                            <select class="form-control select select2-hidden-accessible role-status" *ngIf="statuses">
+                                <option value="-1">{{ 'modules.admin.user.common.selectAllStatus' | translate }}</option>
+                                <option *ngFor="let s of statuses" [value]="s" [selected]="s == status">{{ 'modules.admin.user.common.status' + s | translate }} </option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-2 float-start">
+                            <button class="btn btn-primary" (click)="getData()">{{ 'common.button.search' | translate }} <i class="ph ph-magnifying-glass ms-1 icon-small"></i></button>
+                        </div>
+                        <div class="form-group mb-2 float-end">
+                            <button class="btn btn-primary" (click)="openCreatePermission()">{{ 'modules.admin.role.common.createRole' | translate }} <i class="ph ph-plus ms-1 icon-small"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table #table mat-table [dataSource]="roles" class="table table-sm table-hover table-layout-fixed" aria-describedby="table-roles">
+                    <ng-container matColumnDef="sequence">
+                        <th mat-header-cell *matHeaderCellDef class="text-center bg-dark text-white" [style.width.px]="80" [style.min-width.px]="80" [style.max-width.px]="200">#</th>
+                        <td mat-cell *matCellDef="let role" class="text-center">
+                            {{ role.id }}
+                        </td>
+                    </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white">{{ 'modules.admin.role.common.name' | translate }}</th>
+                        <td mat-cell *matCellDef="let role">
+                            <a *ngIf="role.permissionLocked === 0 else superAdmin"
+                               class="cursor-pointer" (click)="openRolePermission(role)"><span>{{ role.name }}</span></a>
+                            <ng-template #superAdmin>
+                                <span class="text-danger">{{ role.name }}</span>
+                            </ng-template>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white text-center" [style.width.px]="150">{{ 'modules.admin.role.common.status' | translate }}</th>
+                        <td mat-cell *matCellDef="let role" class="text-center">
+                            <span class="badge bg-danger fw-normal" *ngIf="role.status == 0">{{ 'modules.admin.role.common.status' + role.status | translate }}</span>
+                            <span class="badge bg-success fw-normal" *ngIf="role.status == 1">{{ 'modules.admin.role.common.status' + role.status | translate }}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="bg-dark text-white" [style.width.px]="80"></th>
+                        <td mat-cell *matCellDef="let role">
+                            <ng-container *ngIf="role.permissionLocked == 0">
+                                <div class="dropdown">
+                                    <button mat-icon-button data-bs-toggle="dropdown">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item cursor-pointer" (click)="openRolePermission(role)"><i class="ph ph-pencil-simple me-1"></i>{{ 'modules.admin.role.common.permission' | translate }}</a></li>
+                                        <ng-container *ngIf="!checkRoleConfig(role.id)">
+                                            <li class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item cursor-pointer text-bg-danger" (click)="openDialogDeleteRole(role)"><i class="ph ph-trash me-1"></i> {{ 'common.button.delete' | translate }}</a></li>
+                                        </ng-container>
+                                    </ul>
+                                </div>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+            <div class="text-center p-2" *ngIf="roles.length == 0">
+                <i class="mi-inbox"></i>
+                <div class="text-muted">{{ 'common.dataNotFound' | translate }}</div>
+            </div>
+        </div>
+    </div>
+</div>

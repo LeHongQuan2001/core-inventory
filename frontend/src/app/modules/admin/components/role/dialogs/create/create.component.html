@@ -1,0 +1,60 @@
+<div class="col-xl-12 pt-2 pb-2 dialog-header">
+    <h5 class="font-weight-bold m-0 ms-1"><i class="fa-solid fa-users mr-2"></i>
+        {{ 'modules.admin.role.common.createRole' | translate }}
+    </h5>
+    <span class="icon-close-dialog" mat-dialog-close>
+        <i class="ph ph-x"></i>
+    </span>
+</div>
+
+<div class="mat-typography p-2">
+    <form [formGroup]="formCreateRole" >
+        <div class="mb-2">
+            <label class="form-label"><strong>{{ 'modules.admin.role.common.name' | translate }}</strong></label>
+            <div class="form-control-feedback">
+                <input type="text"
+                       formControlName="name"
+                       [ngClass]="{ 'ng-invalid-custom': formCreateRole.get('name')?.invalid && (formCreateRole.get('name')?.dirty || formCreateRole.get('name')?.touched) }"
+                       class="form-control" placeholder="{{ 'modules.admin.role.common.roleName' | translate }}">
+            </div>
+            <div *ngIf="errors.name" class="validation-invalid-label mt-2">
+                {{ 'modules.admin.role.validatedErrors.nameExist' | translate }}
+            </div>
+            <div *ngIf="formCreateRole.get('name')?.invalid && (formCreateRole.get('name')?.dirty || formCreateRole.get('name')?.touched)"
+                 class="validation-invalid-label mt-2">
+                <div *ngIf="formCreateRole.get('name')?.errors?.['required'] || formCreateRole.get('name')?.errors?.['whitespace']">
+                    {{ 'modules.admin.role.validatedErrors.required' | translate }}
+                </div>
+                <div *ngIf="formCreateRole.get('name')?.errors?.['minlength']">
+                    {{ 'modules.admin.role.validatedErrors.minLength' | translate }}
+                </div>
+                <div *ngIf="formCreateRole.get('name')?.errors?.['maxlength']">
+                    {{ 'modules.admin.role.validatedErrors.maxLength' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label class="form-label d-block"><strong>{{ 'modules.admin.role.common.status' | translate }}</strong></label>
+            <select class="form-control select select2-hidden-accessible role-create-statuses" data-minimum-results-for-search="Infinity">
+                <option *ngFor="let status of statuses; let i=index;"
+                        [value]="status"
+                        [selected]="role.status == status">{{ 'modules.admin.role.common.status' + status | translate }}</option>
+            </select>
+        </div>
+        <div class="mb-0">
+            <label class="form-label d-block"><strong>{{ 'modules.admin.role.common.permissionLocked' | translate }}</strong></label>
+            <select class="form-control select select2-hidden-accessible role-create-permission-locked" data-minimum-results-for-search="Infinity">
+                <option *ngFor="let perLocked of listPermissionLocked; let i=index;"
+                        [value]="perLocked"
+                        [selected]="role.permissionLocked == perLocked">{{ 'modules.admin.role.common.permissionLocked' + perLocked | translate }}</option>
+            </select>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 pt-2 pb-2 dialog-footer">
+    <button class="btn btn-danger me-2" mat-dialog-close>{{ 'common.button.cancel' | translate }} <i class="ph-x ms-1"></i></button>
+    <button class="btn btn-success"
+            [disabled]="formCreateRole.invalid || errors.name"
+            (click)="saveRoleInfo()">{{ 'common.button.save' | translate }} <i class="ph-floppy-disk ms-1"></i></button>
+</div>

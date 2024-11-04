@@ -1,0 +1,14 @@
+<div class="error-dialog">
+    <div class="error-dialog-header bg-danger text-white p-2">
+        <span class="mb-0 font-weight-light">
+            <strong class="font-weight-bold">{{ title }}</strong>
+        </span>
+    </div>
+    <mat-dialog-content class="p-2 mt-2">
+        <p>{{ 'common.errorMessage' | translate }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" class="confirm-dialog-footer p-2">
+        <button class="btn btn-light text-capitalize me-2" [autofocus]="false" mat-dialog-close><i class="ph-x me-1"></i>{{ 'common.button.cancel' | translate }}</button>
+        <button class="btn btn-primary text-capitalize" [mat-dialog-close]="true" [routerLink]="['/']"><i class="ph-house me-1"></i>{{ 'common.button.returnToDashboard' | translate }}</button>
+    </mat-dialog-actions>
+</div>

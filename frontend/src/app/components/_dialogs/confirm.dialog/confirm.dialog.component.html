@@ -1,0 +1,14 @@
+<div class="confirm-dialog">
+    <div class="confirm-dialog-header bg-black text-white p-2">
+        <span class="mb-0 font-weight-light">
+            <strong class="font-weight-bold">{{ title }}</strong>
+        </span>
+    </div>
+    <mat-dialog-content class="p-2 mt-2">
+        <p>{{ confirmMessage }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" class="confirm-dialog-footer p-2">
+        <button class="btn btn-danger text-capitalize me-2" [autofocus]="false" mat-dialog-close>{{ 'common.button.cancel' | translate }}<i class="ph-x ms-1"></i></button>
+        <button class="btn btn-primary text-capitalize" [mat-dialog-close]="true">{{ 'common.button.ok' | translate }}<i class="ph-check ms-1"></i></button>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,251 @@
+<div class="dialog-header pt-2 pb-2">
+    <h5 class="font-weight-bold m-0 ms-1"><i class="fa-solid fa-users mr-2"></i>
+        {{ 'modules.admin.permission.common.assignToUser' | translate: { username: user.username || user.email } }}
+    </h5>
+    <span class="icon-close-dialog" mat-dialog-close>
+        <i class="ph ph-x"></i>
+    </span>
+</div>
+
+<div class="notify-user-permission">
+    <div class="col-xl-12 pt-2">
+        <div class="card-body px-0 pb-0">
+            <ul class="nav nav-tabs mb-0">
+                <li class="nav-item ms-2">
+                    <a (click)="tabCurrent = 'permission-tab-role-info'"
+                        [ngClass]="{ 'active show fw-bold': tabCurrent == 'permission-tab-role-info'}"
+                        class="nav-link pt-2 ps-3 pe-3" data-toggle="tab">
+                        <i class="icon-info22"></i> {{ 'modules.admin.permission.common.userInfo' | translate }}
+                    </a>
+                </li>
+                <li class="nav-item ms-2">
+                    <a (click)="tabCurrent = 'permission-tab-all-routes'"
+                       [ngClass]="{ 'active show fw-bold': tabCurrent == 'permission-tab-all-routes'}"
+                       class="nav-link pt-2 ps-3 pe-3" data-toggle="tab"><i class="mi-menu"></i> {{ 'modules.admin.permission.common.allRoutes' | translate }}</a>
+                </li>
+                <li class="nav-item ms-2">
+                    <a (click)="tabCurrent = 'permission-tab-allow-routes'"
+                       [ngClass]="{ 'active show fw-bold': tabCurrent == 'permission-tab-allow-routes'}"
+                       class="nav-link pt-2 ps-3 pe-3 text-success" data-toggle="tab">{{ 'modules.admin.permission.common.allowRoutes' | translate }} <i class="ph-check ms-1"></i></a>
+                </li>
+                <li class="nav-item ms-2">
+                    <a (click)="tabCurrent = 'permission-tab-deny-routes'"
+                       [ngClass]="{ 'active show fw-bold': tabCurrent == 'permission-tab-deny-routes'}"
+                       class="nav-link pt-2 ps-3 pe-3 text-danger" data-toggle="tab">{{ 'modules.admin.permission.common.denyRoutes' | translate }} <i class="ph-x ms-1"></i></a>
+                </li>
+            </ul>
+            <div class="tab-content p-2">
+                <!-- tab content user info -->
+                <div class="tab-pane fade" [ngClass]="{ 'active show': tabCurrent == 'permission-tab-role-info'}"
+                    id="permission-tab-role-info">
+                    <div class="col-xl-12">
+                        <div class="">
+                            <form [formGroup]="userForm">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-2">
+                                            <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.email' | translate }}</strong></label>
+                                            <input type="text" [value]="user.email"  class="form-control" disabled/>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.fullName' | translate }}</strong></label>
+                                            <input type="text" [value]="user.fullName" class="form-control" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-2 form-select-2">
+                                            <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.role' | translate }}</strong></label>
+                                            <select name=""  class="form-control select select-fixed-single user-update-role"
+                                                    *ngIf="roles" [attr.data-user-id]="user.id">
+                                                <option value="-1">{{ 'modules.admin.role.common.notSet' | translate }}  </option>
+                                                <option [value]="role.id" *ngFor="let role of roles" [selected]="role.id == user.roleId">
+                                                    {{ role.name }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-2 form-select-2">
+                                            <label class="form-label d-block"><strong>{{ 'modules.admin.user.common.status' | translate   }}</strong></label>
+                                            <div>
+                                                <select name="status"
+                                                        class="form-control select select-fixed-single user-update-statuses">
+                                                    <option *ngFor="let status of statuses; let i=index;" [value]="status"
+                                                            [selected]="user.status == status">{{ 'modules.admin.user.common.status'
+                                                    + status | translate }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- / tab content user info -->
+
+                <!-- tab content all routes -->
+                <div class="tab-pane fade" [ngClass]="{ 'active show': tabCurrent == 'permission-tab-all-routes'}"
+                    id="permission-tab-all-routes">
+                    <div class="form pe-2 ps-2 pb-0">
+                        <div class="row">
+                            <div class="col-xl-4 ps-0">
+                                <div class="form-group mb-2">
+                                    <div>
+                                        <i class="mi-filter-list mi-2x mr-2 pt-1 text-muted"></i>
+                                        <input #keyword type="text" (keydown.enter)="filterRoutes($event)"
+                                            class="form-control"
+                                            placeholder="{{ 'common.search.placeHolder' | translate }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 p-0">
+                                <button type="button" class="btn btn-primary mb-2" (click)="filterRoutes($event)">{{
+                                    'common.button.search' | translate }} <i
+                                        class="ph ph-magnifying-glass ms-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive border border-radius">
+                        <table class="table table-links table-hover table-striped" aria-describedby="">
+                            <thead>
+                                <tr>
+                                    <th [style.width.px]="30" class="text-center fw-normal bg-dark text-white">{{ 'common.sequence'
+                                        | translate }}</th>
+                                    <th [style.width.px]="120" class="text-center fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.allow' | translate }}</th>
+                                    <th class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.name' | translate }}</th>
+                                    <th [style.width.px]="100" class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.package' | translate }}</th>
+                                    <th class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.uri' | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="aclAll">
+                                <ng-container *ngFor="let route of aclAll; let i = index">
+                                    <tr>
+                                        <td class="text-center">{{ i + 1 + (pageIndex * pageSize) }}</td>
+                                        <td class="text-center">
+                                            <mat-slide-toggle color="primary" (change)="toggle($event, route)"
+                                                [checked]="route.isAllow ? true : false"></mat-slide-toggle>
+                                        </td>
+                                        <td>
+                                            <span>{{ route.name }}</span>
+                                            <ul class="list list-circle mb-0">
+                                                <li class="text-muted font-size-base">{{ 'modules.admin.route.common.controller' | translate }}: {{ route.controller }}</li>
+                                                <li class="text-muted font-size-base">{{ 'modules.admin.route.common.middleware' | translate }}: {{ route.middleware.join(', ') }}</li>
+                                            </ul>
+                                        </td>
+                                        <td>{{ route.vendor }} / {{ route.package }}</td>
+                                        <td>{{ route.uri }}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" *ngIf="aclAll.length == 0">
+                        <div class="text-muted">{{ 'common.dataNotFound' | translate }}</div>
+                    </div>
+                </div>
+                <!-- / tab content all routes -->
+
+                <!-- tab content allow routes -->
+                <div class="tab-pane fade" [ngClass]="{ 'active show': tabCurrent == 'permission-tab-allow-routes'}"
+                    id="permission-tab-allow-routes">
+                    <div class="table-responsive border border-radius mt-0">
+                        <table class="table table-links table-hover table-striped" aria-describedby="">
+                            <thead>
+                                <tr>
+                                    <th [style.width.px]="30" class="text-center fw-normal bg-dark text-white">{{ 'common.sequence'
+                                        | translate }}</th>
+                                    <th [style.width.px]="120" class="text-center fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.allow' | translate }}</th>
+                                    <th class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.name' | translate }}</th>
+                                    <th [style.width.px]="200" class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.package' | translate }}</th>
+                                    <th class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.uri' | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="aclAll">
+                                <ng-container *ngFor="let route of aclAll; let i = index">
+                                    <tr *ngIf="route.isAllow === true">
+                                        <td class="text-center">{{ i + 1 + (pageIndex * pageSize) }}</td>
+                                        <td class="text-center">
+                                            <mat-slide-toggle color="primary" (change)="toggle($event, route)"
+                                                [checked]="route.isAllow ? true : false"></mat-slide-toggle>
+                                        </td>
+                                        <td>
+                                            <span>{{ route.name }}</span>
+                                            <ul class="list list-circle mb-0">
+                                                <li class="text-muted font-size-base">{{ 'modules.admin.route.common.controller' | translate }}: {{ route.controller }}</li>
+                                                <li class="text-muted font-size-base">{{ 'modules.admin.route.common.middleware' | translate }}: {{ route.middleware.join(', ') }}</li>
+                                            </ul>
+                                        </td>
+                                        <td>{{ route.vendor }} / {{ route.package }}</td>
+                                        <td>{{ route.uri }}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" *ngIf="aclAllow.length == 0">
+                        <div class="text-muted">{{ 'common.dataNotFound' | translate }}</div>
+                    </div>
+                </div>
+                <!-- / tab content allow routes -->
+
+                <!-- tab content deny routes -->
+                 <div class="tab-pane fade" [ngClass]="{ 'active show': tabCurrent == 'permission-tab-deny-routes'}"
+                    id="permission-tab-deny-routes">
+                    <div class="table-responsive border border-radius mt-0">
+                        <table class="table table-links table-hover table-striped" aria-describedby="">
+                            <thead>
+                                <tr>
+                                    <th [style.width.px]="30" class="text-center fw-normal bg-dark text-white">{{ 'common.sequence'
+                                        | translate }}</th>
+                                    <th [style.width.px]="120" class="text-center fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.allow' | translate }}</th>
+                                    <th class="text-left bg-dark fw-normal text-white">{{
+                                        'modules.admin.route.common.name' | translate }}</th>
+                                    <th [style.width.px]="200" class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.package' | translate }}</th>
+                                    <th class="text-left fw-normal bg-dark text-white">{{
+                                        'modules.admin.route.common.uri' | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="aclAll">
+                                <ng-container *ngFor="let route of aclAll; let i = index">
+                                    <tr *ngIf="route.isAllow === false">
+                                        <td class="text-center">{{ i + 1 + (pageIndex * pageSize) }}</td>
+                                        <td class="text-center">
+                                            <mat-slide-toggle color="primary" (change)="toggle($event, route)" [checked]="route.isAllow ? true : false"></mat-slide-toggle>
+                                        </td>
+                                        <td>
+                                            <span>{{ route.name }}</span>
+                                            <ul class="list list-circle mb-0">
+                                                <li class="text-muted font-size-base">{{ 'modules.admin.route.common.controller' | translate }}: {{ route.controller }}</li>
+                                                <li class="text-muted font-size-base">{{ 'modules.admin.route.common.middleware' | translate }}: {{ route.middleware.join(', ') }}</li>
+                                            </ul>
+                                        </td>
+                                        <td>{{ route.vendor }} / {{ route.package }}</td>
+                                        <td>{{ route.uri }}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" *ngIf="aclDeny.length == 0">
+                        <div class="text-muted">{{ 'common.dataNotFound' | translate }}</div>
+                    </div>
+                </div>
+                <!-- / tab content deny routes -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dialog-footer pt-2 pb-2" *ngIf="tabCurrent == 'permission-tab-role-info'">
+    <button class="btn btn-danger me-2" mat-dialog-close>{{ 'common.button.cancel' | translate }} <i class="ph-x ms-1"></i></button>
+    <button class="btn btn-primary" [disabled]="checkFormInvalid()" (click)="saveUserInfo()">{{ 'common.button.save' | translate }} <i class="ph-floppy-disk ms-1"></i></button>
+</div>

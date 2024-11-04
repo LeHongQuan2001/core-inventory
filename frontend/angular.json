@@ -1,0 +1,220 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "cli": {
+        "packageManager": "npm",
+        "analytics": "2d763289-c06c-496a-ac94-37c2d80fc0d3"
+    },
+    "newProjectRoot": "projects",
+    "projects": {
+        "frontend": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/frontend",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [{
+                            "glob": "*.ico",
+                            "input": "src",
+                            "output": "./"
+                        },{
+                            "glob": "**/*",
+                            "ignore": ["**/*.css", "**/*.scss"],
+                            "input": "src/assets",
+                            "output": "/assets/"
+                        }, {
+                            "glob": "**/*",
+                            "ignore": ["**/*.css", "**/*.scss"],
+                            "input": "src/styles",
+                            "output": "/assets/styles"
+                        }, {
+                            "glob": "**/*",
+                            "input": "src/service-workers",
+                            "output": "./"
+                        }],
+                        "styles": [
+                            "src/styles.scss",
+                            "src/styles/default/css/layout-2/ltr/all.css",
+                            "src/styles/default/css/layout-2/ltr/customize.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "node_modules/@popperjs/core/dist/umd/popper.min.js",
+                            "src/assets/bootstrap/bootstrap.bundle.min.js",
+                            "src/styles/default/js/vendor/notifications/noty.min.js",
+                            "src/styles/default/js/vendor/select2/select2.min.js",
+                            "src/styles/default/js/vendor/ui/moment/moment.min.js",
+                            "src/styles/default/js/vendor/pickers/daterangepicker.js",
+                            "src/styles/default/js/vendor/pickers/datepicker.min.js",
+                            "src/styles/default/js/vendor/sliders/nouislider.min.js",
+                            "src/styles/default/js/layout-3/app.js",
+                            "src/styles/default/js/app.noty.js",
+                            "src/styles/default/js/picker.date.js",
+                            "src/styles/default/js/app.common.js"
+                        ],
+                        "allowedCommonJsDependencies": [
+                            "buffer",
+                            "node-forge",
+                            "moment",
+                            "prismjs",
+                            "highcharts",
+                            "angular2-uuid",
+                            "file-saver"
+                        ],
+                        "commonChunk": true
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "10mb",
+                                    "maximumError": "12mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "100kb",
+                                    "maximumError": "200kb"
+                                }
+                            ],
+                            "outputHashing": "all",
+                            "aot": true,
+                            "vendorChunk": true,
+                            "commonChunk": true,
+                            "buildOptimizer": true,
+                            "optimization": true
+                        },
+                        "development": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.dev.ts"
+                                }
+                            ],
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "10mb",
+                                    "maximumError": "20mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "100kb",
+                                    "maximumError": "200kb"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "staging": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.staging.ts"
+                                }
+                            ],
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "10mb",
+                                    "maximumError": "20mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "100kb",
+                                    "maximumError": "200kb"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "local": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.ts"
+                                }
+                            ],
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "10mb",
+                                    "maximumError": "20mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "100kb",
+                                    "maximumError": "200kb"
+                                }
+                            ],
+                            "optimization": false,
+                            "vendorChunk": false,
+                            "sourceMap": true
+                        }
+                    },
+                    "defaultConfiguration": "local"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "frontend:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "frontend:build:development"
+                        },
+                        "local": {
+                            "browserTarget": "frontend:build:local"
+                        }
+                    },
+                    "defaultConfiguration": "local"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "frontend:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
+                        "tsConfig": "tsconfig.spec.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                          "src/styles.scss"
+                        ],
+                        "scripts": []
+                    }
+                }
+            }
+        }
+    }
+}
